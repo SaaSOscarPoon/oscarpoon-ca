@@ -32,13 +32,3 @@ body {
   background: #d4d4d8;
   border-radius: 999px;
 }
-
-@keyframes waveform-bounce {
-  0%, 100% { transform: scaleY(0.3); }
-  50% { transform: scaleY(1); }
-}
-
-@keyframes sparkline-draw {
-  from { stroke-dashoffset: 240; }
-  to { stroke-dashoffset: 0; }
-}

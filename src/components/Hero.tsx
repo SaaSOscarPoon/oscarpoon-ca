@@ -20,107 +20,138 @@ const ACCENT_STYLES: Record<
   sky: { border: 'border-t-sky-500', text: 'text-sky-600', tagBorder: 'border-sky-200', tagBg: 'bg-sky-50', ring: 'border-sky-500/50 ring-sky-500/10' },
 }
 
+type CardMediaKind =
+  | { type: 'video'; src: string }
+  | { type: 'covers' }
+  | { type: 'book' }
+
 const CARDS: {
   title: string
   category: string
-  desc: string
   href: string
   tag: string
   accent: Accent
+  media: CardMediaKind
 }[] = [
   {
     title: 'LSDiet.com',
     category: 'WEIGHT REGAIN PREVENTION',
-    desc: 'Free, science-backed training built to end the weight-regain cycle.',
     href: '#lsdiet',
     tag: 'Free training',
     accent: 'emerald',
+    media: { type: 'video', src: '/media/lsdiet-hero.mp4' },
   },
   {
     title: 'Anti-Time-Theft Logger',
     category: 'TIME-THEFT DEFENSE',
-    desc: 'A private, time-stamped log that protects you from time-theft claims.',
     href: '#attl',
     tag: 'Chrome Extension',
     accent: 'amber',
+    media: { type: 'video', src: '/media/attl-demo.mp4' },
   },
   {
     title: 'Original Music',
     category: 'ORIGINAL SONGS',
-    desc: 'Vocal tracks that turn the weight-loss journey into music.',
     href: '#music',
     tag: 'Free to listen',
     accent: 'indigo',
+    media: { type: 'covers' },
   },
   {
     title: 'WPT Toolbook',
     category: 'THE COMPANION MANUAL',
-    desc: '360+ questions, 5 stages, one rebuilt identity.',
     href: '#toolbook',
-    tag: 'Interactive Toolbook',
+    tag: '$500 value',
     accent: 'sky',
+    media: { type: 'book' },
   },
 ]
 
-function CardMotif({ accent }: { accent: Accent }) {
-  if (accent === 'emerald') {
-    return (
-      <svg
-        aria-hidden
-        viewBox="0 0 200 60"
-        className="absolute left-0 right-0 bottom-14 h-10 w-full opacity-[0.12] pointer-events-none"
-        preserveAspectRatio="none"
-      >
-        <polyline
-          points="0,45 25,40 45,48 70,20 95,30 120,10 145,25 170,15 200,5"
-          fill="none"
-          stroke="#10b981"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeDasharray="240"
-          style={{ animation: 'sparkline-draw 3.5s ease-in-out infinite alternate' }}
-        />
-      </svg>
-    )
-  }
-  if (accent === 'amber') {
-    return (
-      <div className="absolute top-5 right-5 flex items-center gap-1.5 pointer-events-none">
-        <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-        <span className="text-[8px] font-mono font-bold tracking-widest text-amber-500/70 uppercase">
-          Logging
-        </span>
-      </div>
-    )
-  }
-  if (accent === 'indigo') {
-    return (
-      <div className="absolute left-5 right-5 bottom-14 h-4 flex items-end gap-[3px] opacity-[0.18] pointer-events-none">
-        {[6, 12, 8, 16, 10, 14, 7, 11, 5, 13, 9, 15].map((h, i) => (
-          <span
-            key={i}
-            className="flex-1 bg-indigo-500 rounded-full origin-bottom"
-            style={{
-              height: `${h}px`,
-              animation: `waveform-bounce ${0.6 + (i % 4) * 0.15}s ease-in-out infinite`,
-              animationDelay: `${i * 0.07}s`,
-            }}
-          />
-        ))}
-      </div>
-    )
-  }
+function CardVideo({ src, active }: { src: string; active: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const video = ref.current
+    if (!video) return
+    if (active) {
+      video.play().catch(() => {})
+    } else {
+      video.pause()
+    }
+  }, [active])
+
   return (
-    <div
-      aria-hidden
-      className="absolute top-0 right-0 w-7 h-7 pointer-events-none"
-      style={{
-        background: 'linear-gradient(135deg, transparent 50%, rgba(14,165,233,0.18) 50%)',
-        clipPath: 'polygon(100% 0, 0 0, 100% 100%)',
-      }}
+    <video
+      ref={ref}
+      src={src}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      className="w-full h-full object-cover pointer-events-none"
     />
   )
+}
+
+const ALBUM_COVERS = [
+  { src: '/media/cover-symphony.jpg', title: 'Symphony of Awakening' },
+  { src: '/media/cover-emberlight.jpg', title: 'Emberlight' },
+  { src: '/media/cover-feelit.jpg', title: 'Feel It' },
+]
+
+function MusicFlashcards({ active }: { active: boolean }) {
+  const [coverIdx, setCoverIdx] = useState(0)
+
+  useEffect(() => {
+    if (!active) return
+    const interval = setInterval(() => {
+      setCoverIdx((i) => (i + 1) % ALBUM_COVERS.length)
+    }, 2400)
+    return () => clearInterval(interval)
+  }, [active])
+
+  return (
+    <div className="relative w-full h-full bg-zinc-900">
+      {ALBUM_COVERS.map((cover, i) => (
+        <img
+          key={cover.src}
+          src={cover.src}
+          alt={`${cover.title} album art`}
+          draggable={false}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+          style={{ opacity: i === coverIdx ? 1 : 0 }}
+        />
+      ))}
+      <span className="absolute bottom-2 left-3 right-3 text-[9px] font-bold tracking-wider text-white/90 uppercase drop-shadow pointer-events-none">
+        {ALBUM_COVERS[coverIdx].title}
+      </span>
+    </div>
+  )
+}
+
+function MiniBook() {
+  return (
+    <div className="w-full h-full flex items-center justify-center bg-gradient-to-b from-sky-50 to-zinc-100">
+      <div className="relative w-24 h-32 md:w-28 md:h-36 rounded-r-lg bg-gradient-to-br from-sky-500 to-blue-700 shadow-xl border border-sky-400/20 p-2.5 flex flex-col justify-between rotate-[-4deg]">
+        <div className="absolute left-0 top-0 bottom-0 w-1 bg-black/15 rounded-l-sm" />
+        <div className="pl-1">
+          <span className="block text-[5px] md:text-[6px] font-black tracking-widest text-sky-100 uppercase">
+            Weight Permanence
+          </span>
+          <span className="block text-[9px] md:text-[11px] font-black text-white leading-tight mt-0.5">
+            THE TOOLBOOK
+          </span>
+        </div>
+        <span className="pl-1 text-[5px] md:text-[6px] font-mono text-sky-100">Oscar Poon</span>
+      </div>
+    </div>
+  )
+}
+
+function CardMedia({ media, active }: { media: CardMediaKind; active: boolean }) {
+  if (media.type === 'video') return <CardVideo src={media.src} active={active} />
+  if (media.type === 'covers') return <MusicFlashcards active={active} />
+  return <MiniBook />
 }
 
 export default function Hero() {
@@ -272,7 +303,7 @@ export default function Hero() {
               <a
                 key={card.title}
                 href={card.href}
-                className={`absolute bottom-8 md:bottom-12 w-[240px] h-[280px] md:w-[300px] md:h-[340px] rounded-3xl p-5 md:p-6 flex flex-col justify-between border border-t-4 border-zinc-200/80 backdrop-blur-md shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white/85 select-none overflow-hidden ${
+                className={`absolute bottom-8 md:bottom-12 w-[240px] h-[280px] md:w-[300px] md:h-[340px] rounded-3xl flex flex-col border border-t-4 border-zinc-200/80 backdrop-blur-md shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white/85 select-none overflow-hidden ${
                   accent.border
                 } ${isFocus ? `ring-1 ${accent.ring}` : ''}`}
                 style={{
@@ -284,30 +315,21 @@ export default function Hero() {
                 }}
                 draggable={false}
               >
-                <CardMotif accent={card.accent} />
-                <div>
-                  <div className="flex items-center justify-between mb-2">
+                <div className="px-5 pt-4 pb-3">
+                  <div className="flex items-center justify-between mb-1.5">
                     <span className={`text-[9px] font-extrabold tracking-widest uppercase ${accent.text}`}>
                       {card.category}
                     </span>
                     <span
-                      className={`px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider border text-zinc-600 ${accent.tagBg} ${accent.tagBorder}`}
+                      className={`px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wider border text-zinc-600 uppercase ${accent.tagBg} ${accent.tagBorder}`}
                     >
                       {card.tag}
                     </span>
                   </div>
                   <h3 className="text-base font-bold text-zinc-900 tracking-tight">{card.title}</h3>
-                  <p className="text-zinc-500 text-xs mt-1.5 leading-relaxed font-medium">
-                    {card.desc}
-                  </p>
                 </div>
-                <div className="pt-2 border-t border-zinc-100 flex items-center justify-between">
-                  <span className="text-[9px] font-bold tracking-wider text-zinc-400 uppercase">View</span>
-                  <div className="p-1 rounded-lg bg-zinc-50 border border-zinc-200 text-zinc-600">
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </div>
+                <div className="flex-1 overflow-hidden">
+                  <CardMedia media={card.media} active={isFocus} />
                 </div>
               </a>
             )
