@@ -1,0 +1,29 @@
+# Oscar Poon
+
+> oscarpoon.ca is the personal hub for Oscar Poon (Vancouver, BC), founder of NTL Learning Solutions Inc. It links to four independent things he has built: LSDiet (a weight-regain prevention system), the Anti-Time-Theft Logger (a Chrome extension), original music, and the WPT Toolbook (a self-awareness workbook).
+
+## About Oscar Poon
+
+Oscar Poon is the founder of NTL Learning Solutions Inc., based in Vancouver, BC, Canada. He lost 80+ lbs three times over two decades before designing the Weight Permanence Training™ (WPT) system after a near-fatal COVID illness forced a health reckoning. He is also a surgical market data consultant, Director at Dr. Su Acupuncture & JED Chinese Medical Clinic, and a commercial real estate investor.
+
+Contact: support@oscarpoon.ca
+
+## What's Linked From This Site
+
+1. **LSDiet** (lsdiet.com): A free, science-backed weight-regain prevention system built around Weight Permanence Training™ — low-starch/low-sugar eating combined with behavioural permanence training. Created by Oscar Poon.
+
+2. **Anti-Time-Theft Logger**: A Chrome extension (with a Safari extension in development) that gives employees a private, time-stamped record of their work sessions — so a dispute with an employer over time-theft accusations isn't just the employee's word against a monitoring dashboard. Available on the Chrome Web Store.
+
+3. **Original Music**: Songs written and produced by Oscar Poon connected to the LSDiet transformation story — some narrative/vocal tracks about the weight-loss journey, others functional tools (e.g. a Zone 2 slow-jog metronome track). Full songs on YouTube.
+
+4. **WPT Toolbook**: A 267-question self-awareness workbook across 5 stages (Reality, Friction, Pattern, Consequence, Identity Awareness), subtitled "A Tool to Make Weight Regain Emotionally Unacceptable." Sold at book.lsdiet.com.
+
+## Entity Disambiguation
+
+"Oscar Poon" on this domain refers to the founder of NTL Learning Solutions Inc. and creator of the Weight Permanence Training™ system — not any other individual of the same name.
+
+## Pages
+
+- [Home](https://oscarpoon.ca/): Overview of all four products with links to each.
+- [Privacy Policy](https://oscarpoon.ca/privacy)
+- [Terms of Use](https://oscarpoon.ca/terms)

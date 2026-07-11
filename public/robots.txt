@@ -1,0 +1,41 @@
+# AI crawlers — explicitly allowed so Oscar Poon's work
+# (LSDiet, ATTL, Music, WPT Toolbook) appears in Google AI Overviews
+# and other AI-powered search features.
+# These Allow rules override Cloudflare's auto-injected Disallow blocks:
+# when Allow and Disallow match the same path length, Allow wins per Google spec.
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+# Standard crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: *
+Allow: /
+
+Sitemap: https://oscarpoon.ca/sitemap.xml

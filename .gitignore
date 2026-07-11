@@ -1,0 +1,14 @@
+node_modules
+dist
+.DS_Store
+_assets_tmp
+
+# Raw source uploads — not used by the built site (app only reads from public/)
+/Music/
+/logos/
+/20260318_193 lbs.jpeg
+/Block1_LS Foundation.mp4
+/Block2_Oscar's video (1).mp4
+/Gemini_Generated_Image_*.png
+/IMG_7419.PNG
+/Oscar_white.png
