@@ -55,7 +55,7 @@ const CARDS: {
   {
     title: 'WPT Toolbook',
     category: 'THE COMPANION MANUAL',
-    desc: '267 questions, 5 stages, one rebuilt identity.',
+    desc: '360+ questions, 5 stages, one rebuilt identity.',
     href: '#toolbook',
     tag: 'Interactive Toolbook',
     accent: 'sky',
@@ -228,9 +228,6 @@ export default function Hero() {
         <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-[#0F172A]">
           I built these to solve different problems.
         </h1>
-        <p className="text-zinc-500 text-xs mt-1 max-w-md mx-auto font-medium">
-          Drag to see all four
-        </p>
       </div>
 
       <div

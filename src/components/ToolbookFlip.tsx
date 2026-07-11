@@ -72,7 +72,7 @@ export default function ToolbookFlip() {
                 WPT Toolbook
               </span>
               <h4 className="text-xs font-bold text-zinc-800 leading-snug mt-1">
-                267 Awareness Questions · 5 Stages
+                360+ Guided Questions · 5 Stages
               </h4>
               <div className="mt-3 space-y-1.5 text-[10px] text-zinc-500 font-medium">
                 <p>01 — Reality Awareness</p>

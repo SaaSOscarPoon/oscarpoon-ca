@@ -22,8 +22,8 @@ interface ProductSectionProps {
   eyebrow: string
   problem: string
   accent: Accent
-  ctaLabel: string
-  ctaHref: string
+  ctaLabel?: string
+  ctaHref?: string
   mediaSide: 'left' | 'right'
   media: ReactNode
   extra?: ReactNode
@@ -84,17 +84,19 @@ export default function ProductSection({
 
           {extra}
 
-          <div className="pt-2">
-            <a
-              href={ctaHref}
-              target="_blank"
-              rel="noreferrer"
-              className={`inline-flex items-center gap-2 text-sm font-bold text-zinc-900 transition-colors ${ACCENT_HOVER[accent]}`}
-            >
-              <span>{ctaLabel}</span>
-              <span aria-hidden>→</span>
-            </a>
-          </div>
+          {ctaLabel && ctaHref && (
+            <div className="pt-2">
+              <a
+                href={ctaHref}
+                target="_blank"
+                rel="noreferrer"
+                className={`inline-flex items-center gap-2 text-sm font-bold text-zinc-900 transition-colors ${ACCENT_HOVER[accent]}`}
+              >
+                <span>{ctaLabel}</span>
+                <span aria-hidden>→</span>
+              </a>
+            </div>
+          )}
         </motion.div>
       </div>
     </section>
