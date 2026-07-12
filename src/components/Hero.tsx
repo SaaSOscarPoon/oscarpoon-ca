@@ -303,7 +303,7 @@ export default function Hero() {
               <a
                 key={card.title}
                 href={card.href}
-                className={`absolute bottom-8 md:bottom-12 w-[240px] h-[280px] md:w-[300px] md:h-[340px] rounded-3xl flex flex-col border border-t-4 border-zinc-200/80 backdrop-blur-md shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white/85 select-none overflow-hidden ${
+                className={`absolute bottom-2 md:bottom-12 w-[260px] h-[58vh] md:w-[300px] md:h-[340px] rounded-3xl flex flex-col border border-t-4 border-zinc-200/80 backdrop-blur-md shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white/85 select-none overflow-hidden ${
                   accent.border
                 } ${isFocus ? `ring-1 ${accent.ring}` : ''}`}
                 style={{
