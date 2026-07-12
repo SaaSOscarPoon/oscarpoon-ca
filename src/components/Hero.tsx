@@ -171,10 +171,18 @@ export default function Hero() {
 
   useEffect(() => {
     if (isDragging) return
-    const interval = setInterval(() => {
-      setRotation((prev) => (prev + 0.004) % (Math.PI * 2))
-    }, 16)
-    return () => clearInterval(interval)
+    let raf: number
+    let last = performance.now()
+    const tick = (now: number) => {
+      const dt = now - last
+      last = now
+      // 0.004 rad per ~16ms frame, scaled to actual elapsed time so
+      // speed stays constant regardless of the display's refresh rate
+      setRotation((prev) => (prev + 0.004 * (dt / 16.6667)) % (Math.PI * 2))
+      raf = requestAnimationFrame(tick)
+    }
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
   }, [isDragging])
 
   useEffect(() => {
@@ -293,7 +301,9 @@ export default function Hero() {
             const y = Math.cos(currentAngle) * Ry
 
             const scale = 0.78 + 0.24 * Math.cos(currentAngle)
-            const blurAmount = (1 - Math.cos(currentAngle)) * 3
+            // animated blur() is expensive to repaint every frame — skip it on
+            // mobile, where it was the main source of the rotation feeling laggy
+            const blurAmount = viewportWidth < 768 ? 0 : (1 - Math.cos(currentAngle)) * 3
             const zIndex = Math.cos(currentAngle) > 0 ? 30 : 10
             const opacity = 0.65 + 0.35 * Math.cos(currentAngle)
             const isFocus = activeCardIndex === idx
@@ -303,7 +313,7 @@ export default function Hero() {
               <a
                 key={card.title}
                 href={card.href}
-                className={`absolute bottom-2 md:bottom-12 w-[260px] h-[58vh] md:w-[300px] md:h-[340px] rounded-3xl flex flex-col border border-t-4 border-zinc-200/80 backdrop-blur-md shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white/85 select-none overflow-hidden ${
+                className={`absolute bottom-2 md:bottom-12 w-[260px] h-[46vh] md:w-[300px] md:h-[340px] rounded-3xl flex flex-col border border-t-4 border-zinc-200/80 backdrop-blur-md shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white/85 select-none overflow-hidden ${
                   accent.border
                 } ${isFocus ? `ring-1 ${accent.ring}` : ''}`}
                 style={{
