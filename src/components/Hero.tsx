@@ -39,7 +39,7 @@ const CARDS: {
     href: '#lsdiet',
     tag: 'Free training',
     accent: 'emerald',
-    media: { type: 'video', src: '/media/lsdiet-hero.mp4' },
+    media: { type: 'video', src: '/media/lsdiet-card.mp4' },
   },
   {
     title: 'Anti-Time-Theft Logger',
@@ -257,7 +257,7 @@ export default function Hero() {
           Health · Security · Music · Identity
         </p>
         <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-[#0F172A]">
-          I built these to solve different problems.
+          Building things I wish already existed
         </h1>
       </div>
 
