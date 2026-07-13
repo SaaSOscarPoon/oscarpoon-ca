@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom'
 import App from './App'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfUse from './pages/TermsOfUse'
+import TeamPage from './pages/TeamPage'
 import './index.css'
 
 export function render(url: string): { html: string; helmet: HelmetServerState } {
@@ -17,6 +18,7 @@ export function render(url: string): { html: string; helmet: HelmetServerState }
           <Route path="/" element={<App />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfUse />} />
+          <Route path="/teams" element={<TeamPage />} />
         </Routes>
       </StaticRouter>
     </HelmetProvider>,
