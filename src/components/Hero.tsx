@@ -156,12 +156,10 @@ function CardMedia({ media, active }: { media: CardMediaKind; active: boolean })
 
 export default function Hero() {
   const [rotation, setRotation] = useState(0)
-  const [isDragging, setIsDragging] = useState(false)
   const [activeCardIndex, setActiveCardIndex] = useState(0)
   const [viewportWidth, setViewportWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 1280,
   )
-  const dragStartRef = useRef<number | null>(null)
 
   useEffect(() => {
     const onResize = () => setViewportWidth(window.innerWidth)
@@ -170,7 +168,6 @@ export default function Hero() {
   }, [])
 
   useEffect(() => {
-    if (isDragging) return
     let raf: number
     let last = performance.now()
     const tick = (now: number) => {
@@ -183,7 +180,7 @@ export default function Hero() {
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [isDragging])
+  }, [])
 
   useEffect(() => {
     const cardAngles = CARDS.map((_, idx) => (idx * Math.PI) / 2)
@@ -199,23 +196,6 @@ export default function Hero() {
     })
     setActiveCardIndex(closestIndex)
   }, [rotation])
-
-  const handleDragStart = (clientX: number) => {
-    dragStartRef.current = clientX
-    setIsDragging(true)
-  }
-
-  const handleDragMove = (clientX: number) => {
-    if (dragStartRef.current === null) return
-    const diff = clientX - dragStartRef.current
-    setRotation((prev) => (prev - diff * 0.0025) % (Math.PI * 2))
-    dragStartRef.current = clientX
-  }
-
-  const handleDragEnd = () => {
-    dragStartRef.current = null
-    setIsDragging(false)
-  }
 
   return (
     <section
@@ -269,16 +249,7 @@ export default function Hero() {
         </h1>
       </div>
 
-      <div
-        className="relative flex-1 w-full flex items-end justify-center cursor-grab active:cursor-grabbing select-none"
-        onMouseDown={(e) => handleDragStart(e.clientX)}
-        onMouseMove={(e) => isDragging && handleDragMove(e.clientX)}
-        onMouseUp={handleDragEnd}
-        onMouseLeave={handleDragEnd}
-        onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
-        onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
-        onTouchEnd={handleDragEnd}
-      >
+      <div className="relative flex-1 w-full flex items-end justify-center select-none">
         <div className="relative w-full max-w-[1600px] h-full flex items-end justify-center">
           <div className="absolute bottom-0 h-full z-20 flex justify-center items-end pointer-events-none">
             <img
@@ -321,7 +292,7 @@ export default function Hero() {
                   zIndex,
                   opacity,
                   filter: `blur(${blurAmount}px)`,
-                  transition: isDragging ? 'none' : 'opacity 0.15s ease-out',
+                  transition: 'opacity 0.15s ease-out',
                 }}
                 draggable={false}
               >
