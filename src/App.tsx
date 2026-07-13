@@ -19,7 +19,7 @@ export default function App() {
         ctaHref="https://lsdiet.com"
         mediaSide="left"
         bg="white"
-        media={<VideoCard src="/media/lsdiet-hero.mp4" label="LSDiet · WPT" />}
+        media={<VideoCard src="/media/lsdiet-hero.mp4" label="LSDiet · WPT" aspect="wide" />}
       />
 
       <ProductSection
