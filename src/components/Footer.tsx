@@ -6,6 +6,11 @@ export default function Footer() {
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           <span className="font-extrabold tracking-widest text-zinc-700 text-sm">OSCAR POON</span>
         </div>
+        <p className="text-zinc-600 text-sm md:text-base leading-relaxed max-w-lg mx-auto">
+          Founder of NTL Learning Solutions Inc., based in Vancouver, BC. Lost 80+ lbs three times
+          before a near-fatal COVID illness forced a rebuild — Weight Permanence Training™, the
+          Anti-Time-Theft Logger, and everything else on this site came out of that.
+        </p>
         <h2 className="text-3xl md:text-4xl font-black text-zinc-900 leading-tight">
           Connect socials
         </h2>
