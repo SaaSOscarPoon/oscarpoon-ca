@@ -200,7 +200,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="snap-section relative h-screen w-full flex flex-col overflow-hidden bg-[#F9F9FB]"
+      className="snap-section relative h-[100dvh] w-full flex flex-col overflow-hidden bg-[#F9F9FB]"
     >
       <motion.div
         aria-hidden
@@ -257,7 +257,7 @@ export default function Hero() {
               <img
                 src="/media/oscar-portrait.png"
                 alt="Oscar Poon"
-                className="h-full w-auto object-contain object-bottom drop-shadow-[0_15px_40px_rgba(0,0,0,0.15)] select-none"
+                className="h-full w-auto object-contain object-bottom drop-shadow-[0_15px_40px_rgba(0,0,0,0.15)] select-none transform-gpu will-change-transform"
                 draggable={false}
               />
             </picture>
@@ -287,11 +287,11 @@ export default function Hero() {
               <a
                 key={card.title}
                 href={card.href}
-                className={`absolute bottom-10 md:bottom-12 w-[260px] md:w-[300px] h-[clamp(280px,46vh,420px)] rounded-3xl flex flex-col border border-t-4 border-zinc-200/80 md:backdrop-blur-md shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white/95 md:bg-white/85 select-none overflow-hidden ${
+                className={`absolute bottom-10 md:bottom-12 w-[260px] md:w-[300px] h-[clamp(280px,46vh,420px)] rounded-3xl flex flex-col border border-t-4 border-zinc-200/80 md:backdrop-blur-md shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white/95 md:bg-white/85 select-none overflow-hidden will-change-[transform,opacity] ${
                   accent.border
                 } ${isFocus ? `ring-1 ${accent.ring}` : ''}`}
                 style={{
-                  transform: `translate3d(${x}px, ${y}px, 0) scale(${scale})`,
+                  transform: `translate3d(${x}px, ${y}px, 0) scale(${scale}) translateZ(0)`,
                   zIndex,
                   opacity,
                   filter: `blur(${blurAmount}px)`,

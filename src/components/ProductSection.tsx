@@ -50,7 +50,7 @@ export default function ProductSection({
   return (
     <section
       id={id}
-      className={`snap-section relative min-h-screen w-full flex items-center border-t border-zinc-200/60 ${
+      className={`snap-section relative min-h-[100dvh] w-full flex items-center border-t border-zinc-200/60 ${
         bg === 'white' ? 'bg-white' : 'bg-[#F9F9FB]'
       }`}
     >

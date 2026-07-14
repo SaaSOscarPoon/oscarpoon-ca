@@ -7,7 +7,7 @@ import Footer from './components/Footer'
 
 export default function App() {
   return (
-    <div className="snap-container h-screen overflow-y-scroll bg-[#F9F9FB]">
+    <div className="snap-container h-[100dvh] overflow-y-scroll bg-[#F9F9FB]">
       <Hero />
 
       <ProductSection
