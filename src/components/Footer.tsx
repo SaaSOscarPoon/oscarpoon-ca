@@ -2,14 +2,14 @@ export default function Footer() {
   return (
     <footer className="snap-section relative min-h-[70vh] w-full flex flex-col justify-center border-t border-zinc-200/60 bg-white">
       <div className="max-w-2xl mx-auto px-6 text-center space-y-6">
-        <div className="flex items-center justify-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="font-extrabold tracking-widest text-zinc-700 text-sm">OSCAR POON</span>
+        <div className="flex items-center justify-center gap-2.5">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="font-extrabold tracking-widest text-zinc-700 text-lg md:text-xl">OSCAR POON</span>
         </div>
         <p className="text-zinc-600 text-sm md:text-base leading-relaxed max-w-lg mx-auto">
-          Founder of NTL Learning Solutions Inc., based in Vancouver, BC. Lost 80+ lbs three times
-          before a near-fatal COVID illness forced a rebuild — Weight Permanence Training™, the
-          Anti-Time-Theft Logger, and everything else on this site came out of that.
+          A near-fatal COVID illness forced a health reckoning. Oscar Poon had already lost and
+          regained 80+ lbs three times — this time he built Weight Permanence Training™ instead
+          of another diet. Founder of NTL Learning Solutions Inc., based in Vancouver, BC.
         </p>
         <h2 className="text-3xl md:text-4xl font-black text-zinc-900 leading-tight">
           Connect socials
@@ -62,9 +62,6 @@ export default function Footer() {
           </a>
         </div>
 
-        <p className="text-zinc-500 text-sm pt-2">
-          Say hello, or ask about a partnership.
-        </p>
         <div className="pt-4">
           <a
             href="mailto:support@oscarpoon.ca"
@@ -81,6 +78,7 @@ export default function Footer() {
           <a href="#attl" className="hover:text-black transition-colors">ATTL</a>
           <a href="#music" className="hover:text-black transition-colors">Music</a>
           <a href="#toolbook" className="hover:text-black transition-colors">Toolbook</a>
+          <a href="/about" className="hover:text-black transition-colors">About</a>
           <a href="/teams" className="hover:text-black transition-colors">Team</a>
           <a href="/privacy" className="hover:text-black transition-colors">Privacy</a>
           <a href="/terms" className="hover:text-black transition-colors">Terms</a>

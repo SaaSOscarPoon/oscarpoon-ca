@@ -20,6 +20,7 @@ const ROUTES = [
   { url: '/privacy', out: 'dist/privacy.html', useHelmetHead: true },
   { url: '/terms', out: 'dist/terms.html', useHelmetHead: true },
   { url: '/teams', out: 'dist/teams.html', useHelmetHead: true },
+  { url: '/about', out: 'dist/about.html', useHelmetHead: true },
 ]
 
 for (const route of ROUTES) {
@@ -39,6 +40,10 @@ for (const route of ROUTES) {
     }
     page = page.replace(/^\s*<link rel="canonical"[^>]*\/>\n/m, '')
     page = page.replace(/^\s*<meta name="description"[^>]*\/>\n/m, '')
+    // The base template's og:title/og:description/og:type/og:url are
+    // homepage-specific — without stripping them, every Helmet-driven
+    // subpage ends up with two conflicting sets of OG tags.
+    page = page.replace(/^\s*<meta property="og:(title|description|type|url)"[^>]*\/>\n/gm, '')
     const injected = [helmet.meta.toString(), helmet.link.toString()]
       .filter(Boolean)
       .join('\n    ')

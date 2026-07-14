@@ -6,6 +6,7 @@ import App from './App'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfUse from './pages/TermsOfUse'
 import TeamPage from './pages/TeamPage'
+import AboutPage from './pages/AboutPage'
 import './index.css'
 
 export function render(url: string): { html: string; helmet: HelmetServerState } {
@@ -19,6 +20,7 @@ export function render(url: string): { html: string; helmet: HelmetServerState }
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<TermsOfUse />} />
           <Route path="/teams" element={<TeamPage />} />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
       </StaticRouter>
     </HelmetProvider>,

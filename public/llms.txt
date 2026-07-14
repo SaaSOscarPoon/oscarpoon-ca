@@ -25,5 +25,7 @@ Contact: support@oscarpoon.ca
 ## Pages
 
 - [Home](https://oscarpoon.ca/): Overview of all four products with links to each.
+- [About](https://oscarpoon.ca/about): Full biography — health story, education, professional background.
+- [Team](https://oscarpoon.ca/teams)
 - [Privacy Policy](https://oscarpoon.ca/privacy)
 - [Terms of Use](https://oscarpoon.ca/terms)
