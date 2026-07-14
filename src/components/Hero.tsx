@@ -279,7 +279,10 @@ export default function Hero() {
             // mobile, where it was the main source of the rotation feeling laggy
             const blurAmount = viewportWidth < 768 ? 0 : (1 - Math.cos(currentAngle)) * 3
             const zIndex = Math.cos(currentAngle) > 0 ? 30 : 10
-            const opacity = 0.65 + 0.35 * Math.cos(currentAngle)
+            // fading a card's whole element opacity dims its now-solid
+            // background too, which reads as transparency again — skip
+            // the fade on mobile where solid backgrounds fixed the flicker
+            const opacity = viewportWidth < 768 ? 1 : 0.65 + 0.35 * Math.cos(currentAngle)
             const isFocus = activeCardIndex === idx
             const accent = ACCENT_STYLES[card.accent]
 
