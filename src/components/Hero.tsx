@@ -252,12 +252,15 @@ export default function Hero() {
       <div className="relative flex-1 w-full flex items-end justify-center select-none">
         <div className="relative w-full max-w-[1600px] h-full flex items-end justify-center">
           <div className="absolute bottom-0 h-full z-20 flex justify-center items-end pointer-events-none">
-            <img
-              src="/media/oscar-portrait.png"
-              alt="Oscar Poon"
-              className="h-full w-auto object-contain object-bottom drop-shadow-[0_15px_40px_rgba(0,0,0,0.15)] select-none"
-              draggable={false}
-            />
+            <picture>
+              <source srcSet="/media/oscar-portrait.webp" type="image/webp" />
+              <img
+                src="/media/oscar-portrait.png"
+                alt="Oscar Poon"
+                className="h-full w-auto object-contain object-bottom drop-shadow-[0_15px_40px_rgba(0,0,0,0.15)] select-none"
+                draggable={false}
+              />
+            </picture>
             <div className="absolute bottom-0 w-40 h-4 bg-emerald-500/10 blur-lg rounded-full" />
           </div>
 

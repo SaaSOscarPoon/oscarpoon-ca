@@ -19,6 +19,7 @@ const ROUTES = [
   { url: '/', out: 'dist/index.html', useHelmetHead: false },
   { url: '/privacy', out: 'dist/privacy.html', useHelmetHead: true },
   { url: '/terms', out: 'dist/terms.html', useHelmetHead: true },
+  { url: '/teams', out: 'dist/teams.html', useHelmetHead: true },
 ]
 
 for (const route of ROUTES) {

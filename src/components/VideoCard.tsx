@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface VideoCardProps {
   src: string
@@ -9,6 +9,23 @@ interface VideoCardProps {
 export default function VideoCard({ src, label, aspect = 'portrait' }: VideoCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [muted, setMuted] = useState(true)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {})
+        } else {
+          video.pause()
+        }
+      },
+      { threshold: 0.25 },
+    )
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [])
 
   const toggleMute = () => {
     const video = videoRef.current
@@ -28,7 +45,7 @@ export default function VideoCard({ src, label, aspect = 'portrait' }: VideoCard
       <video
         ref={videoRef}
         className="absolute inset-0 w-full h-full object-contain"
-        autoPlay
+        preload="metadata"
         loop
         muted={muted}
         playsInline

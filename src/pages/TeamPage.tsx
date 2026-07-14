@@ -7,10 +7,10 @@ export default function TeamPage() {
       <Helmet>
         <title>Team | Oscar Poon</title>
         <meta name="description" content="The people behind oscarpoon.ca and everything built under it." />
-        <link rel="canonical" href="https://oscarpoon.ca/team" />
+        <link rel="canonical" href="https://oscarpoon.ca/teams" />
         <meta property="og:title" content="Team | Oscar Poon" />
         <meta property="og:description" content="The people behind oscarpoon.ca and everything built under it." />
-        <meta property="og:url" content="https://oscarpoon.ca/team" />
+        <meta property="og:url" content="https://oscarpoon.ca/teams" />
       </Helmet>
 
       <div className="max-w-6xl mx-auto px-6 h-14 flex items-center">
