@@ -278,7 +278,13 @@ export default function Hero() {
             // animated blur() is expensive to repaint every frame — skip it on
             // mobile, where it was the main source of the rotation feeling laggy
             const blurAmount = viewportWidth < 768 ? 0 : (1 - Math.cos(currentAngle)) * 3
-            const zIndex = Math.cos(currentAngle) > 0 ? 30 : 10
+            // A binary front/back zIndex (30 vs 10) ties whenever two
+            // adjacent cards are both in the "front" half at once, and CSS
+            // then falls back to DOM order — so whichever card comes later
+            // in CARDS always won the overlap, regardless of which one was
+            // actually rotated further forward. Use a continuous value tied
+            // to cos(angle) so the physically-closer card always wins.
+            const zIndex = Math.round((Math.cos(currentAngle) + 1) * 500)
             // fading a card's whole element opacity dims its now-solid
             // background too, which reads as transparency again — skip
             // the fade on mobile where solid backgrounds fixed the flicker
