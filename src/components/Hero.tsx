@@ -252,7 +252,7 @@ export default function Hero() {
       <div className="relative flex-1 w-full flex items-end justify-center select-none">
         <div className="relative w-full max-w-[1600px] h-full flex items-end justify-center">
           <div className="absolute bottom-0 h-full z-20 flex justify-center items-end pointer-events-none">
-            <picture>
+            <picture className="contents">
               <source srcSet="/media/oscar-portrait.webp" type="image/webp" />
               <img
                 src="/media/oscar-portrait.png"
