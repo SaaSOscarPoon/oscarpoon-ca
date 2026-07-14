@@ -287,7 +287,7 @@ export default function Hero() {
               <a
                 key={card.title}
                 href={card.href}
-                className={`absolute bottom-10 md:bottom-12 w-[260px] md:w-[300px] h-[clamp(280px,46vh,420px)] rounded-3xl flex flex-col border border-t-4 border-zinc-200/80 md:backdrop-blur-md shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white/95 md:bg-white/85 select-none overflow-hidden will-change-[transform,opacity] ${
+                className={`absolute bottom-10 md:bottom-12 w-[260px] md:w-[300px] h-[clamp(280px,46vh,420px)] rounded-3xl flex flex-col border border-t-4 border-zinc-200/80 md:backdrop-blur-md shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white md:bg-white/85 select-none overflow-hidden will-change-[transform,opacity] ${
                   accent.border
                 } ${isFocus ? `ring-1 ${accent.ring}` : ''}`}
                 style={{
