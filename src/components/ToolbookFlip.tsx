@@ -35,13 +35,13 @@ export default function ToolbookFlip() {
   }
 
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-2 md:gap-4">
       <div
         ref={containerRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         onClick={() => setIsOpen((v) => !v)}
-        className="relative w-60 h-80 cursor-pointer select-none"
+        className="relative w-40 h-56 md:w-60 md:h-80 cursor-pointer select-none"
         style={{ perspective: '1600px' }}
       >
         <motion.div
@@ -62,7 +62,7 @@ export default function ToolbookFlip() {
 
           {/* content page — real WPT Toolbook content, revealed once the cover opens */}
           <motion.div
-            className="absolute inset-0 bg-white rounded-r-xl border border-zinc-200 shadow-inner p-5 flex flex-col justify-between"
+            className="absolute inset-0 bg-white rounded-r-xl border border-zinc-200 shadow-inner p-3 md:p-5 flex flex-col justify-between overflow-hidden"
             style={{ transform: 'translate3d(0,0,-2px)' }}
             animate={{ opacity: isOpen ? 1 : 0.9, x: isOpen ? 0 : -4 }}
             transition={{ duration: 0.5, delay: isOpen ? 0.25 : 0 }}
@@ -71,17 +71,17 @@ export default function ToolbookFlip() {
               <span className="text-[8px] font-black text-sky-600 tracking-widest uppercase">
                 WPT Toolbook
               </span>
-              <h4 className="text-xs font-bold text-zinc-800 leading-snug mt-1">
+              <h4 className="text-[11px] md:text-xs font-bold text-zinc-800 leading-snug mt-1">
                 360+ Guided Questions · 5 Stages
               </h4>
-              <div className="mt-3 space-y-1.5 text-[10px] text-zinc-500 font-medium">
+              <div className="hidden md:block mt-3 space-y-1.5 text-[10px] text-zinc-500 font-medium">
                 <p>01 — Reality Awareness</p>
                 <p>02 — Friction Awareness</p>
                 <p>03 — Pattern Awareness</p>
                 <p>04 — Consequence Awareness</p>
                 <p>05 — Identity Awareness</p>
               </div>
-              <p className="mt-3 text-[10px] text-zinc-400 italic leading-relaxed border-t border-zinc-100 pt-2">
+              <p className="hidden md:block mt-3 text-[10px] text-zinc-400 italic leading-relaxed border-t border-zinc-100 pt-2">
                 "You do not gain 100 lbs from one meal. Just like you do not become
                 healthy from one salad."
               </p>
@@ -93,7 +93,7 @@ export default function ToolbookFlip() {
 
           {/* front cover, flips open on click */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-sky-500 to-blue-700 text-white rounded-r-xl p-5 flex flex-col justify-between shadow-2xl border border-sky-400/20"
+            className="absolute inset-0 bg-gradient-to-br from-sky-500 to-blue-700 text-white rounded-r-xl p-3 md:p-5 flex flex-col justify-between shadow-2xl border border-sky-400/20"
             style={{
               transformOrigin: 'left center',
               transformStyle: 'preserve-3d',

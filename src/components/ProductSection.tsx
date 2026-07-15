@@ -54,7 +54,7 @@ export default function ProductSection({
         bg === 'white' ? 'bg-white' : 'bg-[#F9F9FB]'
       }`}
     >
-      <div className="max-w-6xl w-full mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
+      <div className="max-w-6xl w-full mx-auto px-6 py-14 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-center">
         <div className={`${mediaOrder} flex justify-center`}>
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}

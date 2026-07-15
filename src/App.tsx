@@ -107,7 +107,7 @@ export default function App() {
 
       <ProductSection
         id="toolbook"
-        eyebrow="The Companion Manual"
+        eyebrow="Psycho-behavioural manual for endless motivations"
         problem="A tool to make weight regain emotionally unacceptable."
         accent="sky"
         ctaLabel="Get the Toolbook"
@@ -116,7 +116,7 @@ export default function App() {
         bg="tint"
         media={<ToolbookFlip />}
         extra={
-          <div className="space-y-3">
+          <div className="space-y-2 md:space-y-3">
             <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-[11px] font-bold tracking-wide uppercase">
               $500 value
             </span>

@@ -183,20 +183,22 @@ export default function BlogDial() {
             />
 
             <div className="relative z-[2] h-full px-5 md:px-[52px] py-5 md:py-8 flex flex-col">
-              <span
-                className="inline-block w-fit text-[10px] font-semibold uppercase tracking-[0.25em] px-4 py-2 rounded-full border"
-                style={{ color: '#f59e0b', background: 'rgba(0,0,0,0.6)', borderColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(6px)' }}
-              >
-                Currently learning
-              </span>
-
-              <div className="flex-1 flex flex-col justify-center md:justify-end min-h-0">
+              <div className="flex items-start justify-between gap-4">
+                <span
+                  className="inline-block w-fit text-[10px] font-semibold uppercase tracking-[0.25em] px-4 py-2 rounded-full border"
+                  style={{ color: '#f59e0b', background: 'rgba(0,0,0,0.6)', borderColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(6px)' }}
+                >
+                  Currently learning
+                </span>
                 <p
-                  className="hidden md:block text-[12px] tracking-wide mb-3.5 max-w-[520px] leading-[1.5]"
+                  className="hidden md:block text-[12px] tracking-wide text-right max-w-[320px] leading-[1.5] pt-2"
                   style={{ color: '#a1a1aa', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
                 >
-                  // Three times a week I write up what I'm learning about weight, insulin and behaviour
+                  // Three times a week I write up what I'm learning about weight, psychology, and behaviour
                 </p>
+              </div>
+
+              <div className="flex-1 flex flex-col justify-center md:justify-end min-h-0">
                 <p
                   className="md:hidden text-[11px] tracking-wide mb-2 text-center"
                   style={{ color: '#f59e0b', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
@@ -223,7 +225,7 @@ export default function BlogDial() {
                 </a>
               </div>
 
-              <div className="flex flex-wrap gap-2 justify-between items-center">
+              <div className="flex flex-wrap gap-2 justify-between items-center mt-4 md:mt-7">
                 <a
                   href={active.url}
                   target="_blank"
@@ -247,11 +249,9 @@ export default function BlogDial() {
             className="flex items-center gap-4 md:gap-7 px-4 md:px-10 py-3 md:py-4"
             style={{ background: 'rgba(9,10,9,0.92)' }}
           >
-            <div className="w-[70px] md:w-[120px] shrink-0">
-              <span className="block text-[9px] md:text-[9.5px] uppercase tracking-[0.16em] text-zinc-600 mb-1">
-                Published
-              </span>
-              <div className="text-xs md:text-sm text-zinc-300">{formatDate(active.date)}</div>
+            <div className="hidden md:block w-[120px] shrink-0">
+              <span className="block text-[9.5px] uppercase tracking-[0.16em] text-zinc-600 mb-1">Published</span>
+              <div className="text-sm text-zinc-300">{formatDate(active.date)}</div>
             </div>
 
             <div className="flex-1 relative h-[80px] md:h-[92px] max-w-[640px] mx-auto overflow-hidden">
@@ -282,7 +282,7 @@ export default function BlogDial() {
                           type="button"
                           key={vIdx}
                           onClick={() => goTo(vIdx)}
-                          className="h-[34px] w-full flex items-center justify-center px-8 shrink-0 font-light text-xs md:text-sm transition-colors"
+                          className="h-[34px] w-full flex items-center justify-center px-8 shrink-0 font-light text-[13px] md:text-sm transition-colors"
                           style={{ color: idx === activeIndex && loop === 1 ? '#f59e0b' : '#6b7280' }}
                         >
                           <span className="truncate whitespace-nowrap overflow-hidden max-w-full">{e.title}</span>
