@@ -7,6 +7,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfUse from './pages/TermsOfUse'
 import TeamPage from './pages/TeamPage'
 import AboutPage from './pages/AboutPage'
+import ATTLTamperProof from './pages/ATTLTamperProof'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/terms" element={<TermsOfUse />} />
           <Route path="/teams" element={<TeamPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/attl/tamper-proof" element={<ATTLTamperProof />} />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

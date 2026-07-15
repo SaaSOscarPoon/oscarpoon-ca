@@ -7,6 +7,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy'
 import TermsOfUse from './pages/TermsOfUse'
 import TeamPage from './pages/TeamPage'
 import AboutPage from './pages/AboutPage'
+import ATTLTamperProof from './pages/ATTLTamperProof'
 import './index.css'
 
 export function render(url: string): { html: string; helmet: HelmetServerState } {
@@ -21,6 +22,7 @@ export function render(url: string): { html: string; helmet: HelmetServerState }
           <Route path="/terms" element={<TermsOfUse />} />
           <Route path="/teams" element={<TeamPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/attl/tamper-proof" element={<ATTLTamperProof />} />
         </Routes>
       </StaticRouter>
     </HelmetProvider>,
