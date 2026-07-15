@@ -203,7 +203,7 @@ export default function BlogDial() {
                   className="md:hidden text-[11px] tracking-wide mb-2 text-center"
                   style={{ color: '#f59e0b', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
                 >
-                  {formatDate(active.date)}
+                  I write what I'm learning — 3 articles a week.
                 </p>
                 <a href={active.url} target="_blank" rel="noreferrer">
                   <h2
