@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your License Key | Anti-Time Theft Logger</title>
+  <style>
+    :root {
+      --bg-main: #0b0f19;
+      --bg-card: #131c2e;
+      --bg-inner: #0b1325;
+      --border-color: #22314d;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-emerald: #10b981;
+      --accent-mint: #34d399;
+      --accent-indigo: #6366f1;
+      --accent-danger: #ef4444;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 1100px;
+      margin: 40px 20px;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+
+    .brand-name {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, var(--text-main), var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .grid-container { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+
+    .video-title { font-size: 22px; font-weight: 700; margin: 0 0 8px 0; letter-spacing: -0.5px; }
+    .video-subtitle { color: var(--text-muted); font-size: 14px; margin: 0 0 24px 0; line-height: 1.5; }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--bg-inner);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-placeholder {
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+    }
+
+    .play-btn {
+      width: 64px;
+      height: 64px;
+      background: var(--accent-indigo);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    }
+
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-left: 16px solid #ffffff;
+      margin-left: 4px;
+    }
+
+    .placeholder-text { font-size: 14px; font-weight: 600; color: var(--text-main); }
+    .placeholder-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .status-badge.pending {
+      background: rgba(148, 163, 184, 0.1);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      color: var(--text-muted);
+    }
+
+    .status-badge.success {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: var(--accent-mint);
+    }
+
+    .status-badge.error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: var(--accent-danger);
+    }
+
+    h1 { font-size: 28px; font-weight: 800; margin: 0 0 12px 0; letter-spacing: -0.5px; }
+    .fulfillment-desc { color: var(--text-muted); font-size: 14px; line-height: 1.6; margin: 0 0 24px 0; }
+
+    .key-container {
+      background: var(--bg-inner);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .key-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .key-value {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent-mint);
+      letter-spacing: 0.5px;
+      word-break: break-all;
+    }
+
+    .action-btn {
+      width: 100%;
+      padding: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    .btn-emerald { background: var(--accent-emerald); color: #0b0f19; border: none; margin-bottom: 12px; }
+    .btn-emerald:hover { background: var(--accent-mint); }
+    .btn-emerald:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--border-color); }
+    .btn-outline:hover { background: rgba(255, 255, 255, 0.03); border-color: var(--text-muted); }
+    .btn-outline:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    footer a { color: var(--text-main); text-decoration: none; margin: 0 10px; }
+    footer a:hover { color: var(--accent-mint); text-decoration: underline; }
+    .footer-divider { color: var(--border-color); }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="header-brand">
+      <img src="/assets/idle-128.png" alt="Anti-Time Theft Logger" class="brand-logo">
+      <span class="brand-name">Anti-Time Theft Logger</span>
+    </div>
+
+    <div class="grid-container">
+
+      <div class="panel">
+        <h2 class="video-title">Your Activation Walkthrough</h2>
+        <p class="video-subtitle">A short walkthrough on activating your key inside the extension popup.</p>
+        <div class="video-wrapper">
+          <div class="video-placeholder">
+            <div class="play-btn"><div class="play-icon"></div></div>
+            <div class="placeholder-text">Walkthrough video coming soon</div>
+            <div class="placeholder-sub">Reserved for a future embed</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div id="statusBadge" class="status-badge pending"><span>⏳</span> Confirming your payment...</div>
+          <h1 id="headline">One moment</h1>
+          <p class="fulfillment-desc" id="descText">We're verifying your order with Stripe. This only takes a second.</p>
+
+          <div class="key-container" id="keyContainer" style="display:none;">
+            <div class="key-label">Your License Key</div>
+            <div class="key-value" id="licenseKeyString">—</div>
+          </div>
+        </div>
+
+        <div>
+          <button class="action-btn btn-emerald" id="copyAction" style="display:none;">📋 Copy License Key</button>
+          <button class="action-btn btn-outline" id="downloadAction" style="display:none;">💾 Download Backup Archive (.txt)</button>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      <span>&copy; 2026 NTL Learning Solutions Inc. All rights reserved.</span>
+      <span class="footer-divider">|</span>
+      <span>Support: <a href="mailto:support@oscarpoon.ca">support@oscarpoon.ca</a></span>
+      <span class="footer-divider">|</span>
+      <a href="/terms.html">Terms of Service</a>
+      <span class="footer-divider">|</span>
+      <a href="/privacy.html">Privacy Policy</a>
+    </footer>
+  </div>
+
+  <script>
+    // This project is separate from any other oscarpoon.ca product's Supabase
+    // project. The anon/publishable key below is safe to expose client-side —
+    // it can only invoke these two Edge Functions, which enforce their own
+    // Stripe/DB checks server-side. It has no table access.
+    const LICENSING_URL = 'https://vmsxhbglkqirpsdudntq.supabase.co';
+    const LICENSING_ANON_KEY = 'sb_publishable_USkTZX5dcl-GZnfx6bPCUg_Qx0zTCD_';
+
+    const statusBadge = document.getElementById('statusBadge');
+    const headline = document.getElementById('headline');
+    const descText = document.getElementById('descText');
+    const keyContainer = document.getElementById('keyContainer');
+    const keyDOM = document.getElementById('licenseKeyString');
+    const copyBtn = document.getElementById('copyAction');
+    const downloadBtn = document.getElementById('downloadAction');
+
+    function showError(message) {
+      statusBadge.className = 'status-badge error';
+      statusBadge.innerHTML = '<span>⚠️</span> Could not verify order';
+      headline.textContent = 'Something needs a look';
+      descText.textContent = message;
+    }
+
+    function showSuccess(key) {
+      statusBadge.className = 'status-badge success';
+      statusBadge.innerHTML = '<span>✨</span> Lifetime Premium Active';
+      headline.textContent = 'Order Confirmed';
+      descText.textContent = 'Your license key has been generated. Copy it into the extension popup to unlock your full ledger.';
+      keyContainer.style.display = 'block';
+      keyDOM.textContent = key;
+      copyBtn.style.display = 'flex';
+      downloadBtn.style.display = 'flex';
+
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(key);
+        const original = copyBtn.textContent;
+        copyBtn.textContent = '✅ Key Copied to Clipboard!';
+        setTimeout(() => { copyBtn.textContent = original; }, 2000);
+      });
+
+      downloadBtn.addEventListener('click', () => {
+        const contents = `ANTI-TIME THEFT LOGGER\nLIFETIME PREMIUM LICENSE\n\nLicense Key: ${key}\nIssued: ${new Date().toLocaleDateString()}\n\nSupport: support@oscarpoon.ca\n\nInstructions:\n1. Open the Anti-Time Theft Logger extension popup.\n2. Paste this key into the "Unlock Premium" box and click Activate.`;
+        const blob = new Blob([contents], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'ATTL_License_Key.txt';
+        link.click();
+        URL.revokeObjectURL(link.href);
+      });
+    }
+
+    async function fulfillOrder() {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get('session_id');
+
+      if (!sessionId) {
+        showError('No order session was found on this link. If you just completed a purchase, check your email receipt for the correct link, or contact support@oscarpoon.ca.');
+        return;
+      }
+
+      try {
+        const res = await fetch(`${LICENSING_URL}/functions/v1/issue-license?session_id=${encodeURIComponent(sessionId)}`, {
+          headers: {
+            'apikey': LICENSING_ANON_KEY,
+            'Authorization': `Bearer ${LICENSING_ANON_KEY}`
+          }
+        });
+        const data = await res.json();
+
+        if (res.ok && data.key) {
+          showSuccess(data.key);
+        } else if (res.status === 402) {
+          showError('This order has not completed payment yet. If you believe this is an error, contact support@oscarpoon.ca.');
+        } else {
+          showError('We could not verify this order. Contact support@oscarpoon.ca with your receipt and we\'ll issue your key manually.');
+        }
+      } catch (err) {
+        showError('Network error while verifying your order. Refresh this page, or contact support@oscarpoon.ca.');
+      }
+    }
+
+    fulfillOrder();
+  </script>
+</body>
+</html>
