@@ -1,0 +1,303 @@
+import { useEffect, useRef, useState } from 'react'
+
+interface JournalEntry {
+  title: string
+  slug: string
+  url: string
+  image: string | null
+  date: string
+  readTimeMinutes: number | null
+  topic: string | null
+}
+
+interface JustPublishedFeed {
+  generatedAt: string
+  entries: JournalEntry[]
+}
+
+const FEED_URL = 'https://lsdiet.com/just-published.json'
+const ITEM_HEIGHT = 34
+
+function formatDate(iso: string): string {
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return iso
+  return d.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' })
+}
+
+export default function BlogDial() {
+  const [entries, setEntries] = useState<JournalEntry[] | null>(null)
+  const [error, setError] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const trackRef = useRef<HTMLDivElement>(null)
+  const zoneRef = useRef<HTMLDivElement>(null)
+  const total = entries?.length ?? 0
+  const virtualIndexRef = useRef(0)
+  const isTransitioningRef = useRef(false)
+
+  useEffect(() => {
+    let cancelled = false
+    fetch(FEED_URL)
+      .then((r) => {
+        if (!r.ok) throw new Error(`${r.status}`)
+        return r.json() as Promise<JustPublishedFeed>
+      })
+      .then((data) => {
+        if (cancelled) return
+        setEntries(data.entries.slice(0, 6))
+      })
+      .catch(() => {
+        if (!cancelled) setError(true)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!total) return
+    virtualIndexRef.current = total
+    positionTrack(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [total])
+
+  function centerOffset() {
+    const el = zoneRef.current
+    if (!el) return 0
+    return (el.getBoundingClientRect().height - ITEM_HEIGHT) / 2
+  }
+
+  function positionTrack(animate: boolean) {
+    const track = trackRef.current
+    if (!track) return
+    const y = centerOffset() - virtualIndexRef.current * ITEM_HEIGHT
+    track.style.transition = animate ? 'transform 0.5s cubic-bezier(0.16,1,0.3,1)' : 'none'
+    if (animate) isTransitioningRef.current = true
+    track.style.transform = `translateY(${y}px)`
+  }
+
+  function move(direction: number) {
+    if (isTransitioningRef.current || !total) return
+    virtualIndexRef.current += direction
+    const newActive = ((virtualIndexRef.current % total) + total) % total
+    setActiveIndex(newActive)
+    positionTrack(true)
+  }
+
+  function goTo(vIdx: number) {
+    if (vIdx === virtualIndexRef.current) return
+    move(vIdx - virtualIndexRef.current)
+  }
+
+  useEffect(() => {
+    const track = trackRef.current
+    const zone = zoneRef.current
+    if (!track || !zone || !total) return
+
+    function onTransitionEnd() {
+      isTransitioningRef.current = false
+      if (virtualIndexRef.current >= total * 2) {
+        virtualIndexRef.current -= total
+        positionTrack(false)
+      } else if (virtualIndexRef.current < total) {
+        virtualIndexRef.current += total
+        positionTrack(false)
+      }
+    }
+
+    let lastWheel = 0
+    function onWheel(e: WheelEvent) {
+      e.preventDefault()
+      const now = Date.now()
+      if (now - lastWheel < 300) return
+      lastWheel = now
+      move(e.deltaY > 0 ? 1 : -1)
+    }
+
+    let startY = 0
+    function onTouchStart(e: TouchEvent) {
+      startY = e.touches[0].clientY
+    }
+    function onTouchEnd(e: TouchEvent) {
+      const diff = startY - e.changedTouches[0].clientY
+      if (Math.abs(diff) > 25) move(diff > 0 ? 1 : -1)
+    }
+
+    function onResize() {
+      positionTrack(false)
+    }
+
+    track.addEventListener('transitionend', onTransitionEnd)
+    zone.addEventListener('wheel', onWheel, { passive: false })
+    zone.addEventListener('touchstart', onTouchStart, { passive: true })
+    zone.addEventListener('touchend', onTouchEnd, { passive: true })
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      track.removeEventListener('transitionend', onTransitionEnd)
+      zone.removeEventListener('wheel', onWheel)
+      zone.removeEventListener('touchstart', onTouchStart)
+      zone.removeEventListener('touchend', onTouchEnd)
+      window.removeEventListener('resize', onResize)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [total])
+
+  if (error || (entries && entries.length === 0)) return null
+  if (!entries) {
+    return (
+      <section id="journal" className="snap-section relative w-full bg-[#050606]">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-14">
+          <div className="rounded-[18px] h-[460px] md:h-[600px] animate-pulse bg-white/5" />
+        </div>
+      </section>
+    )
+  }
+
+  const active = entries[activeIndex]
+
+  return (
+    <section
+      id="journal"
+      className="snap-section relative w-full bg-[#050606] text-[#f3f4f6]"
+      style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+    >
+      <div className="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-14">
+        <div className="rounded-[18px] overflow-hidden">
+          <div className="relative h-[420px] md:h-[560px] overflow-hidden">
+            {entries.map((e, i) => (
+              <div
+                key={e.slug}
+                className="absolute inset-0 bg-cover bg-center transition-opacity duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+                style={{ backgroundImage: e.image ? `url(${e.image})` : undefined, opacity: i === activeIndex ? 1 : 0 }}
+              />
+            ))}
+            <div
+              className="absolute inset-0"
+              style={{ background: 'linear-gradient(to top, #050606 8%, rgba(5,6,6,0.65) 45%, rgba(5,6,6,0.2) 75%)' }}
+            />
+
+            <div className="relative z-[2] h-full px-6 md:px-[52px] py-8 md:py-10 flex flex-col justify-between">
+              <span
+                className="inline-block w-fit text-[10px] font-semibold uppercase tracking-[0.25em] px-4 py-2 rounded-full border"
+                style={{ color: '#f59e0b', background: 'rgba(0,0,0,0.6)', borderColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(6px)' }}
+              >
+                Currently learning
+              </span>
+
+              <div>
+                <p
+                  className="text-[12px] tracking-wide mb-3.5 max-w-[520px] leading-[1.5]"
+                  style={{ color: '#a1a1aa', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
+                >
+                  // Three times a week I write up what I'm learning about weight, insulin and behaviour
+                </p>
+                <a href={active.url} target="_blank" rel="noreferrer">
+                  <h2
+                    className="text-[2.25rem] md:text-6xl font-light text-white cursor-pointer transition-colors duration-300 hover:text-amber-500"
+                    style={{
+                      fontFamily: "'Playfair Display', serif",
+                      lineHeight: 1.25,
+                      letterSpacing: '0.01em',
+                      maxWidth: 820,
+                      textDecoration: 'underline',
+                      textDecorationColor: 'rgba(63,63,70,0.5)',
+                      textDecorationThickness: '1px',
+                      textUnderlineOffset: '8px',
+                      textWrap: 'balance',
+                    }}
+                  >
+                    {active.title}
+                  </h2>
+                </a>
+              </div>
+
+              <div className="flex justify-between items-center text-xs">
+                <a
+                  href={active.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-3 text-white uppercase tracking-[0.16em] text-[10px] hover:text-amber-500 transition-colors group"
+                >
+                  <span>Read on LS Diet</span>
+                  <span className="w-8 h-px bg-zinc-600 group-hover:w-16 group-hover:bg-amber-500 transition-all duration-500" />
+                </a>
+                <span
+                  className="text-[11px] tracking-wide"
+                  style={{ color: '#71717a', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
+                >
+                  {String(activeIndex + 1).padStart(2, '0')} //{' '}
+                  {active.readTimeMinutes ? `EST. ${active.readTimeMinutes} MIN READ` : 'READ ON LS DIET'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div
+            className="flex items-center gap-5 md:gap-7 px-5 md:px-10 py-5 flex-wrap md:flex-nowrap"
+            style={{ background: 'rgba(9,10,9,0.92)' }}
+          >
+            <div className="w-auto md:w-[120px] shrink-0">
+              <span className="block text-[9.5px] uppercase tracking-[0.16em] text-zinc-600 mb-1">Published</span>
+              <div className="text-sm text-zinc-300">{formatDate(active.date)}</div>
+            </div>
+
+            <div className="flex-1 relative h-[100px] max-w-[640px] mx-auto overflow-hidden">
+              <button
+                type="button"
+                aria-label="Previous"
+                onClick={() => move(-1)}
+                className="absolute z-10 top-0.5 left-1/2 -translate-x-1/2 w-[22px] h-[22px] rounded-full border border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-amber-500 hover:border-amber-500 transition-colors"
+                style={{ background: 'rgba(9,10,9,0.9)' }}
+              >
+                ↑
+              </button>
+              <div
+                className="absolute inset-x-0 top-0 h-[26px] z-[5] pointer-events-none"
+                style={{ background: 'linear-gradient(to bottom, rgba(9,10,9,0.95), transparent)' }}
+              />
+              <div
+                className="absolute inset-x-0 bottom-0 h-[26px] z-[5] pointer-events-none"
+                style={{ background: 'linear-gradient(to top, rgba(9,10,9,0.95), transparent)' }}
+              />
+              <div ref={zoneRef} className="w-full h-full relative overflow-hidden" style={{ cursor: 'ns-resize' }}>
+                <div ref={trackRef} className="flex flex-col items-center absolute w-full">
+                  {[0, 1, 2].flatMap((loop) =>
+                    entries.map((e, idx) => {
+                      const vIdx = loop * total + idx
+                      return (
+                        <button
+                          type="button"
+                          key={vIdx}
+                          onClick={() => goTo(vIdx)}
+                          className="h-[34px] flex items-center justify-center text-center px-4 shrink-0 font-light text-sm transition-colors"
+                          style={{ color: idx === activeIndex && loop === 1 ? '#f59e0b' : '#6b7280' }}
+                        >
+                          {idx + 1}. {e.title}
+                        </button>
+                      )
+                    }),
+                  )}
+                </div>
+              </div>
+              <button
+                type="button"
+                aria-label="Next"
+                onClick={() => move(1)}
+                className="absolute z-10 bottom-0.5 left-1/2 -translate-x-1/2 w-[22px] h-[22px] rounded-full border border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-amber-500 hover:border-amber-500 transition-colors"
+                style={{ background: 'rgba(9,10,9,0.9)' }}
+              >
+                ↓
+              </button>
+            </div>
+
+            <div className="w-auto md:w-[120px] shrink-0 text-right">
+              <span className="block text-[9.5px] uppercase tracking-[0.16em] text-zinc-600 mb-1">Topic</span>
+              <div className="text-sm text-zinc-300 truncate">{active.topic ?? 'LS Diet'}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

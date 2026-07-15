@@ -3,6 +3,7 @@ import ProductSection from './components/ProductSection'
 import VideoCard from './components/VideoCard'
 import MusicPlayer from './components/MusicPlayer'
 import ToolbookFlip from './components/ToolbookFlip'
+import BlogDial from './components/BlogDial'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -126,6 +127,8 @@ export default function App() {
           </div>
         }
       />
+
+      <BlogDial />
 
       <Footer />
     </div>
