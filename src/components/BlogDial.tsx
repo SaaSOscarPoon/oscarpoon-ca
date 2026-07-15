@@ -203,7 +203,7 @@ export default function BlogDial() {
                   className="md:hidden text-[11px] tracking-wide mb-2 text-center"
                   style={{ color: '#f59e0b', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
                 >
-                  I write what I'm learning — 3 articles a week.
+                  {formatDate(active.date)}
                 </p>
                 <a href={active.url} target="_blank" rel="noreferrer">
                   <h2
@@ -302,6 +302,18 @@ export default function BlogDial() {
                 ↓
               </button>
             </div>
+          </div>
+
+          <div
+            className="md:hidden px-4 py-2.5 text-center"
+            style={{ background: 'rgba(9,10,9,0.92)' }}
+          >
+            <span
+              className="text-[10px] tracking-wide"
+              style={{ color: '#71717a', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
+            >
+              // I write what I'm learning — 3 articles a week.
+            </span>
           </div>
         </div>
       </div>
