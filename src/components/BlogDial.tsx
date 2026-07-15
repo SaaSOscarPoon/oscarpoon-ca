@@ -151,9 +151,9 @@ export default function BlogDial() {
   if (error || (entries && entries.length === 0)) return null
   if (!entries) {
     return (
-      <section id="journal" className="snap-section relative w-full bg-[#050606]">
-        <div className="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-14">
-          <div className="rounded-[18px] h-[460px] md:h-[600px] animate-pulse bg-white/5" />
+      <section id="journal" className="snap-section relative w-full min-h-[100dvh] flex items-center bg-[#050606]">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 w-full">
+          <div className="rounded-[18px] h-[64vh] max-h-[560px] animate-pulse bg-white/5" />
         </div>
       </section>
     )
@@ -164,12 +164,12 @@ export default function BlogDial() {
   return (
     <section
       id="journal"
-      className="snap-section relative w-full bg-[#050606] text-[#f3f4f6]"
+      className="snap-section relative w-full min-h-[100dvh] flex items-center bg-[#050606] text-[#f3f4f6]"
       style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
     >
-      <div className="max-w-6xl mx-auto px-4 md:px-6 py-10 md:py-14">
+      <div className="max-w-6xl mx-auto px-4 md:px-6 w-full">
         <div className="rounded-[18px] overflow-hidden">
-          <div className="relative h-[420px] md:h-[560px] overflow-hidden">
+          <div className="relative h-[54vh] min-h-[300px] max-h-[480px] md:h-[56vh] md:max-h-[520px] overflow-hidden">
             {entries.map((e, i) => (
               <div
                 key={e.slug}
@@ -182,7 +182,7 @@ export default function BlogDial() {
               style={{ background: 'linear-gradient(to top, #050606 8%, rgba(5,6,6,0.65) 45%, rgba(5,6,6,0.2) 75%)' }}
             />
 
-            <div className="relative z-[2] h-full px-6 md:px-[52px] py-8 md:py-10 flex flex-col justify-between">
+            <div className="relative z-[2] h-full px-5 md:px-[52px] py-5 md:py-8 flex flex-col">
               <span
                 className="inline-block w-fit text-[10px] font-semibold uppercase tracking-[0.25em] px-4 py-2 rounded-full border"
                 style={{ color: '#f59e0b', background: 'rgba(0,0,0,0.6)', borderColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(6px)' }}
@@ -190,25 +190,31 @@ export default function BlogDial() {
                 Currently learning
               </span>
 
-              <div>
+              <div className="flex-1 flex flex-col justify-center md:justify-end min-h-0">
                 <p
-                  className="text-[12px] tracking-wide mb-3.5 max-w-[520px] leading-[1.5]"
+                  className="hidden md:block text-[12px] tracking-wide mb-3.5 max-w-[520px] leading-[1.5]"
                   style={{ color: '#a1a1aa', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
                 >
                   // Three times a week I write up what I'm learning about weight, insulin and behaviour
                 </p>
+                <p
+                  className="md:hidden text-[11px] tracking-wide mb-2 text-center"
+                  style={{ color: '#f59e0b', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
+                >
+                  {formatDate(active.date)}
+                </p>
                 <a href={active.url} target="_blank" rel="noreferrer">
                   <h2
-                    className="text-[2.25rem] md:text-6xl font-light text-white cursor-pointer transition-colors duration-300 hover:text-amber-500"
+                    className="text-[1.9rem] md:text-6xl font-light text-white cursor-pointer transition-colors duration-300 hover:text-amber-500 text-center md:text-left"
                     style={{
                       fontFamily: "'Playfair Display', serif",
-                      lineHeight: 1.25,
+                      lineHeight: 1.22,
                       letterSpacing: '0.01em',
                       maxWidth: 820,
                       textDecoration: 'underline',
                       textDecorationColor: 'rgba(63,63,70,0.5)',
                       textDecorationThickness: '1px',
-                      textUnderlineOffset: '8px',
+                      textUnderlineOffset: '6px',
                       textWrap: 'balance',
                     }}
                   >
@@ -217,52 +223,53 @@ export default function BlogDial() {
                 </a>
               </div>
 
-              <div className="flex justify-between items-center text-xs">
+              <div className="flex flex-wrap gap-2 justify-between items-center">
                 <a
                   href={active.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-3 text-white uppercase tracking-[0.16em] text-[10px] hover:text-amber-500 transition-colors group"
+                  className="inline-flex items-center gap-3 text-white uppercase tracking-[0.14em] text-[9px] md:text-[10px] hover:text-amber-500 transition-colors group"
                 >
-                  <span>Read on LS Diet</span>
+                  <span>Tap to read the article (free)</span>
                   <span className="w-8 h-px bg-zinc-600 group-hover:w-16 group-hover:bg-amber-500 transition-all duration-500" />
                 </a>
                 <span
-                  className="text-[11px] tracking-wide"
+                  className="text-[10px] md:text-[11px] tracking-wide"
                   style={{ color: '#71717a', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
                 >
-                  {String(activeIndex + 1).padStart(2, '0')} //{' '}
-                  {active.readTimeMinutes ? `EST. ${active.readTimeMinutes} MIN READ` : 'READ ON LS DIET'}
+                  {active.readTimeMinutes ? `EST. ${active.readTimeMinutes} MIN READ` : 'FREE TO READ'}
                 </span>
               </div>
             </div>
           </div>
 
           <div
-            className="flex items-center gap-5 md:gap-7 px-5 md:px-10 py-5 flex-wrap md:flex-nowrap"
+            className="flex items-center gap-4 md:gap-7 px-4 md:px-10 py-3 md:py-4"
             style={{ background: 'rgba(9,10,9,0.92)' }}
           >
-            <div className="w-auto md:w-[120px] shrink-0">
-              <span className="block text-[9.5px] uppercase tracking-[0.16em] text-zinc-600 mb-1">Published</span>
-              <div className="text-sm text-zinc-300">{formatDate(active.date)}</div>
+            <div className="w-[70px] md:w-[120px] shrink-0">
+              <span className="block text-[9px] md:text-[9.5px] uppercase tracking-[0.16em] text-zinc-600 mb-1">
+                Published
+              </span>
+              <div className="text-xs md:text-sm text-zinc-300">{formatDate(active.date)}</div>
             </div>
 
-            <div className="flex-1 relative h-[100px] max-w-[640px] mx-auto overflow-hidden">
+            <div className="flex-1 relative h-[80px] md:h-[92px] max-w-[640px] mx-auto overflow-hidden">
               <button
                 type="button"
                 aria-label="Previous"
                 onClick={() => move(-1)}
-                className="absolute z-10 top-0.5 left-1/2 -translate-x-1/2 w-[22px] h-[22px] rounded-full border border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-amber-500 hover:border-amber-500 transition-colors"
+                className="absolute z-10 top-0.5 left-1/2 -translate-x-1/2 w-[20px] h-[20px] rounded-full border border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-amber-500 hover:border-amber-500 transition-colors"
                 style={{ background: 'rgba(9,10,9,0.9)' }}
               >
                 ↑
               </button>
               <div
-                className="absolute inset-x-0 top-0 h-[26px] z-[5] pointer-events-none"
+                className="absolute inset-x-0 top-0 h-[22px] z-[5] pointer-events-none"
                 style={{ background: 'linear-gradient(to bottom, rgba(9,10,9,0.95), transparent)' }}
               />
               <div
-                className="absolute inset-x-0 bottom-0 h-[26px] z-[5] pointer-events-none"
+                className="absolute inset-x-0 bottom-0 h-[22px] z-[5] pointer-events-none"
                 style={{ background: 'linear-gradient(to top, rgba(9,10,9,0.95), transparent)' }}
               />
               <div ref={zoneRef} className="w-full h-full relative overflow-hidden" style={{ cursor: 'ns-resize' }}>
@@ -275,10 +282,10 @@ export default function BlogDial() {
                           type="button"
                           key={vIdx}
                           onClick={() => goTo(vIdx)}
-                          className="h-[34px] flex items-center justify-center text-center px-4 shrink-0 font-light text-sm transition-colors"
+                          className="h-[34px] w-full flex items-center justify-center px-8 shrink-0 font-light text-xs md:text-sm transition-colors"
                           style={{ color: idx === activeIndex && loop === 1 ? '#f59e0b' : '#6b7280' }}
                         >
-                          {idx + 1}. {e.title}
+                          <span className="truncate whitespace-nowrap overflow-hidden max-w-full">{e.title}</span>
                         </button>
                       )
                     }),
@@ -289,16 +296,11 @@ export default function BlogDial() {
                 type="button"
                 aria-label="Next"
                 onClick={() => move(1)}
-                className="absolute z-10 bottom-0.5 left-1/2 -translate-x-1/2 w-[22px] h-[22px] rounded-full border border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-amber-500 hover:border-amber-500 transition-colors"
+                className="absolute z-10 bottom-0.5 left-1/2 -translate-x-1/2 w-[20px] h-[20px] rounded-full border border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-amber-500 hover:border-amber-500 transition-colors"
                 style={{ background: 'rgba(9,10,9,0.9)' }}
               >
                 ↓
               </button>
-            </div>
-
-            <div className="w-auto md:w-[120px] shrink-0 text-right">
-              <span className="block text-[9.5px] uppercase tracking-[0.16em] text-zinc-600 mb-1">Topic</span>
-              <div className="text-sm text-zinc-300 truncate">{active.topic ?? 'LS Diet'}</div>
             </div>
           </div>
         </div>
