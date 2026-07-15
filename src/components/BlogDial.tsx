@@ -312,7 +312,7 @@ export default function BlogDial() {
               className="text-[10px] tracking-wide"
               style={{ color: '#71717a', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
             >
-              // I write what I'm learning — 3 articles a week.
+              // I write what I'm learning - 3 articles a week //
             </span>
           </div>
         </div>
