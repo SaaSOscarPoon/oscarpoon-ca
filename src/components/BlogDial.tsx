@@ -19,7 +19,12 @@ const FEED_URL = 'https://lsdiet.com/just-published.json'
 const ITEM_HEIGHT = 34
 
 function formatDate(iso: string): string {
-  const d = new Date(iso)
+  // Date-only ISO strings ("2026-07-15") parse as UTC midnight, which rolls
+  // back a day in western timezones once toLocaleDateString converts to
+  // local time. Forcing a local-time parse avoids that (same fix lsdiet-repo
+  // uses in BlogPage.tsx's formatShortDate).
+  const datePart = iso.length === 10 ? `${iso}T00:00:00` : iso
+  const d = new Date(datePart)
   if (Number.isNaN(d.getTime())) return iso
   return d.toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' })
 }
