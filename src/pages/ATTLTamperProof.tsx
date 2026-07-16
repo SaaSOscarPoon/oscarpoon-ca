@@ -187,9 +187,17 @@ new.entry_hash := encode(
             Plain English
           </h3>
           <p>
-            Once a day, without any user involved, a fingerprint of the entire log is published
-            to a public record outside our own systems. No email, no notification, just a quiet,
-            ongoing public trail that anyone can check.
+            To be clear about what actually gets published: <strong>never your log itself, only a
+            fingerprint of it.</strong> Think of a fingerprint like feeding the entire log through
+            a shredder that always turns the same input into the exact same confetti pattern, and
+            any change, even one letter, into a completely different pattern. There's no way to
+            run the confetti backwards and reconstruct what went in. So once a day, we shred the
+            log and publish only the resulting pattern, a short scrambled code, to a public page
+            outside our own systems. Nobody looking at it, not your employer, not a stranger, not
+            even us, can see your session times, your notes, or anything else about you from it.
+            All it's good for is confirming whether a given day's log matches the pattern we
+            published for that day. No email, no notification, just that pattern quietly posted
+            where anyone can compare it.
           </p>
           <p>
             <strong>What this protects you from:</strong> wholesale deletion or recreation of the
