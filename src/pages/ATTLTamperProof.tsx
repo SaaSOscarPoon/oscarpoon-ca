@@ -24,12 +24,18 @@ export default function ATTLTamperProof() {
         <meta property="og:url" content="https://oscarpoon.ca/attl/tamper-proof" />
       </Helmet>
 
-      <div className="max-w-6xl mx-auto px-6 h-14 flex items-center">
+      <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
         <a href="/" className="flex items-center gap-2 group">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 group-hover:scale-125 transition-transform" />
           <span className="font-bold text-xs tracking-[0.25em] text-zinc-700 group-hover:text-black transition-colors">
             OSCAR POON
           </span>
+        </a>
+        <a
+          href="/attl"
+          className="text-[11px] font-bold tracking-widest uppercase text-zinc-500 hover:text-amber-600 transition-colors"
+        >
+          ← Anti-Time-Theft Logger
         </a>
       </div>
 
