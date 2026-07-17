@@ -29,7 +29,7 @@ const FAQS = [
   },
   {
     q: 'Can the log be edited after the fact — even by you, or by the developer?',
-    a: 'No. Every entry is hash-chained and independently anchored, so any retroactive edit is detectable. See the full technical breakdown on the tamper-proof page.',
+    a: 'No. Every entry is linked to the one before it with a cryptographic hash and independently anchored, so any retroactive edit is detectable. See the full technical breakdown on the tamper-proof page.',
   },
   {
     q: 'Does it track anything besides session times?',
@@ -48,13 +48,13 @@ export default function ATTLLanding() {
         <title>Anti-Time-Theft Logger — Proof You Were Working</title>
         <meta
           name="description"
-          content="A free Chrome extension that keeps a tamper-proof log of your work sessions, so a time-theft accusation has to compete with a record instead of your word."
+          content="A free Chrome extension that keeps a log of your work sessions that can't be edited after the fact, so a time-theft accusation has to compete with a record instead of your word."
         />
         <link rel="canonical" href="https://oscarpoon.ca/attl" />
         <meta property="og:title" content="Anti-Time-Theft Logger — Proof You Were Working" />
         <meta
           property="og:description"
-          content="A free Chrome extension that keeps a tamper-proof log of your work sessions."
+          content="A free Chrome extension that keeps a log of your work sessions that can't be edited after the fact."
         />
         <meta property="og:url" content="https://oscarpoon.ca/attl" />
         <meta property="og:type" content="website" />
@@ -85,9 +85,9 @@ export default function ATTLLanding() {
           <br className="hidden md:block" /> not just your word for it.
         </h1>
         <p className="text-zinc-500 text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed mb-8">
-          Anti-Time-Theft Logger quietly keeps a tamper-evident record of your work sessions in
-          the background — so if a "you weren't really working" accusation ever lands on your
-          desk, you have a log to point to instead of a memory to defend.
+          Anti-Time-Theft Logger quietly records your work sessions in the background and locks
+          each entry so it can't be edited later — so if a "you weren't really working" accusation
+          ever lands on your desk, you have a log to point to instead of a memory to defend.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
@@ -155,9 +155,10 @@ export default function ATTLLanding() {
               A log only proves anything if it can't be quietly edited later.
             </h2>
             <p className="text-zinc-400 text-sm leading-relaxed max-w-xl">
-              Every entry is hash-chained and independently anchored, so tampering is detectable —
-              even by the app's own developer. Read the technical breakdown, or the plain-English
-              version if code isn't your thing.
+              Every entry is linked to the one before it with a cryptographic hash and
+              independently anchored, so tampering is detectable — even by the app's own
+              developer. Read the technical breakdown, or the plain English version if code isn't
+              your thing.
             </p>
           </div>
           <a
