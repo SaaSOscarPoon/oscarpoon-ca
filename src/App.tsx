@@ -35,9 +35,18 @@ export default function App() {
         mediaMaxWidth="max-w-xl"
         media={<VideoCard src="/media/attl-demo.mp4" label="ATTL · Live demo" aspect="wide" />}
         extra={
-          <span className="block text-[10px] font-bold tracking-widest uppercase text-zinc-400">
-            Safari · iPhone · Android — coming soon
-          </span>
+          <div className="space-y-2">
+            <span className="block text-[10px] font-bold tracking-widest uppercase text-zinc-400">
+              Safari · iPhone · Android — coming soon
+            </span>
+            <a
+              href="/attl"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-500 hover:text-amber-600 transition-colors"
+            >
+              <span>See the full details</span>
+              <span aria-hidden>→</span>
+            </a>
+          </div>
         }
       />
 
