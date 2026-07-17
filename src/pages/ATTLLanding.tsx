@@ -99,13 +99,13 @@ export default function ATTLLanding() {
   return (
     <div className="min-h-screen bg-white">
       <Helmet>
-        <title>Anti-Time-Theft Logger — Proof You Were Working</title>
+        <title>Protect Yourself From Time-Theft Accusations at Work | Anti-Time-Theft Logger</title>
         <meta
           name="description"
           content="A free Chrome extension that keeps a log of your work sessions that can't be edited after the fact, so a time-theft accusation has to compete with a record instead of your word."
         />
         <link rel="canonical" href="https://oscarpoon.ca/attl" />
-        <meta property="og:title" content="Anti-Time-Theft Logger — Proof You Were Working" />
+        <meta property="og:title" content="Protect Yourself From Time-Theft Accusations at Work | Anti-Time-Theft Logger" />
         <meta
           property="og:description"
           content="A free Chrome extension that keeps a log of your work sessions that can't be edited after the fact."
@@ -136,8 +136,8 @@ export default function ATTLLanding() {
           Free Chrome extension
         </span>
         <h1 className="text-4xl md:text-6xl font-black tracking-tight text-zinc-900 leading-[1.05] mb-5">
-          Proof you were working,
-          <br className="hidden md:block" /> not just your word for it.
+          Protect yourself from
+          <br className="hidden md:block" /> time-theft accusations at work
         </h1>
         <p className="text-zinc-500 text-base md:text-lg font-medium max-w-2xl mx-auto leading-relaxed mb-8">
           Runs quietly in the background, building a record nobody can secretly rewrite — so when
@@ -296,7 +296,8 @@ export default function ATTLLanding() {
       <section className="border-t border-zinc-100">
         <div className="max-w-2xl mx-auto px-6 py-16 md:py-20 text-center space-y-6">
           <h2 className="text-2xl md:text-3xl font-black text-zinc-900">
-            Start the log before you need it.
+            Install and set it up in just 30 seconds. Protect yourself now to prevent a time-theft
+            accusation, not after.
           </h2>
           <a
             href={CHROME_STORE_URL}
