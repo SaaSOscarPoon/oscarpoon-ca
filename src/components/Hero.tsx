@@ -25,8 +25,24 @@ type CardMediaKind =
   | { type: 'video'; src: string }
   | { type: 'image'; src: string }
   | { type: 'gallery'; images: { src: string; caption: string }[] }
+  | { type: 'saas' }
   | { type: 'covers' }
   | { type: 'book' }
+
+const SAAS_PRODUCTS = [
+  {
+    title: 'Anti-Time-Theft Logger',
+    tagline: '',
+    href: '#attl',
+    image: '/media/attl-static.jpg',
+  },
+  {
+    title: 'NoMath',
+    tagline: 'Canadian bill-splitting app that collects money for you',
+    href: 'https://nomath.ca',
+    image: '/media/nomath-static.jpg',
+  },
+]
 
 const CARDS: {
   title: string
@@ -52,20 +68,12 @@ const CARDS: {
     },
   },
   {
-    title: 'Anti-Time-Theft Logger',
+    title: SAAS_PRODUCTS[0].title,
     category: 'SaaS',
-    href: '#attl',
+    href: SAAS_PRODUCTS[0].href,
     tag: 'Developed by Oscar',
     accent: 'amber',
-    media: { type: 'image', src: '/media/attl-static.jpg' },
-  },
-  {
-    title: 'NoMath',
-    category: 'SaaS',
-    href: 'https://nomath.ca',
-    tag: 'Developed by Oscar',
-    accent: 'violet',
-    media: { type: 'image', src: '/media/nomath-static.jpg' },
+    media: { type: 'saas' },
   },
   {
     title: 'Original Music',
@@ -158,6 +166,23 @@ function CardGallery({
   )
 }
 
+function CardSaasImage({ productIdx }: { productIdx: number }) {
+  return (
+    <div className="relative w-full h-full bg-zinc-900">
+      {SAAS_PRODUCTS.map((p, i) => (
+        <img
+          key={p.image}
+          src={p.image}
+          alt={p.title}
+          draggable={false}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 pointer-events-none select-none"
+          style={{ opacity: i === productIdx ? 1 : 0 }}
+        />
+      ))}
+    </div>
+  )
+}
+
 const ALBUM_COVERS = [
   { src: '/media/cover-symphony.jpg', title: 'Symphony of Awakening' },
   { src: '/media/cover-emberlight.jpg', title: 'Emberlight' },
@@ -213,17 +238,29 @@ function MiniBook() {
   )
 }
 
-function CardMedia({ media, active }: { media: CardMediaKind; active: boolean }) {
+function CardMedia({
+  media,
+  active,
+  saasProductIdx,
+}: {
+  media: CardMediaKind
+  active: boolean
+  saasProductIdx: number
+}) {
   if (media.type === 'video') return <CardVideo src={media.src} active={active} />
   if (media.type === 'image') return <CardImage src={media.src} />
   if (media.type === 'gallery') return <CardGallery images={media.images} active={active} />
+  if (media.type === 'saas') return <CardSaasImage productIdx={saasProductIdx} />
   if (media.type === 'covers') return <MusicFlashcards active={active} />
   return <MiniBook />
 }
 
+const SAAS_CARD_INDEX = CARDS.findIndex((c) => c.media.type === 'saas')
+
 export default function Hero() {
   const [rotation, setRotation] = useState(0)
   const [activeCardIndex, setActiveCardIndex] = useState(0)
+  const [saasProductIdx, setSaasProductIdx] = useState(0)
   const [viewportWidth, setViewportWidth] = useState(
     typeof window !== 'undefined' ? window.innerWidth : 1280,
   )
@@ -263,6 +300,14 @@ export default function Hero() {
     })
     setActiveCardIndex(closestIndex)
   }, [rotation])
+
+  useEffect(() => {
+    if (activeCardIndex !== SAAS_CARD_INDEX) return
+    const interval = setInterval(() => {
+      setSaasProductIdx((i) => (i + 1) % SAAS_PRODUCTS.length)
+    }, 1500)
+    return () => clearInterval(interval)
+  }, [activeCardIndex])
 
   return (
     <section
@@ -358,11 +403,18 @@ export default function Hero() {
             const opacity = 1
             const isFocus = activeCardIndex === idx
             const accent = ACCENT_STYLES[card.accent]
+            const isSaas = idx === SAAS_CARD_INDEX
+            const product = isSaas ? SAAS_PRODUCTS[saasProductIdx] : null
+            const displayTitle = product ? product.title : card.title
+            const displayHref = product ? product.href : card.href
+            const isExternal = displayHref.startsWith('http')
 
             return (
               <a
                 key={card.title}
-                href={card.href}
+                href={displayHref}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noreferrer' : undefined}
                 className={`absolute bottom-10 md:bottom-12 w-[260px] md:w-[300px] h-[clamp(280px,46vh,420px)] rounded-3xl flex flex-col border border-t-4 border-zinc-200/80 shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white select-none overflow-hidden will-change-[transform,opacity] ${
                   accent.border
                 } ${isFocus ? `ring-1 ${accent.ring}` : ''}`}
@@ -386,10 +438,15 @@ export default function Hero() {
                       {card.tag}
                     </span>
                   </div>
-                  <h3 className="text-base font-bold text-zinc-900 tracking-tight">{card.title}</h3>
+                  <h3 className="text-base font-bold text-zinc-900 tracking-tight">{displayTitle}</h3>
+                  {product && (
+                    <p className="text-[10px] text-zinc-400 mt-0.5 leading-snug min-h-[14px]">
+                      {product.tagline}
+                    </p>
+                  )}
                 </div>
                 <div className="flex-1 overflow-hidden">
-                  <CardMedia media={card.media} active={isFocus} />
+                  <CardMedia media={card.media} active={isFocus} saasProductIdx={saasProductIdx} />
                 </div>
               </a>
             )
