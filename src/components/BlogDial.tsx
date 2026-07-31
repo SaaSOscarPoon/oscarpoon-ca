@@ -188,7 +188,7 @@ export default function BlogDial() {
                   className="inline-block w-fit text-[10px] font-semibold uppercase tracking-[0.25em] px-4 py-2 rounded-full border"
                   style={{ color: '#f59e0b', background: 'rgba(0,0,0,0.6)', borderColor: 'rgba(255,255,255,0.05)', backdropFilter: 'blur(6px)' }}
                 >
-                  Currently learning
+                  Just Published by Oscar
                 </span>
                 <p
                   className="hidden md:block text-[12px] tracking-wide text-right max-w-[320px] leading-[1.5] pt-2"

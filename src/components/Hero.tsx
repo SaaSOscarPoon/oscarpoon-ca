@@ -8,7 +8,7 @@ const NAV_LINKS = [
   { label: 'Toolbook', href: '#toolbook' },
 ]
 
-type Accent = 'emerald' | 'amber' | 'indigo' | 'sky'
+type Accent = 'emerald' | 'amber' | 'indigo' | 'sky' | 'violet'
 
 const ACCENT_STYLES: Record<
   Accent,
@@ -18,10 +18,13 @@ const ACCENT_STYLES: Record<
   amber: { border: 'border-t-amber-500', text: 'text-amber-600', tagBorder: 'border-amber-200', tagBg: 'bg-amber-50', ring: 'border-amber-500/50 ring-amber-500/10' },
   indigo: { border: 'border-t-indigo-500', text: 'text-indigo-600', tagBorder: 'border-indigo-200', tagBg: 'bg-indigo-50', ring: 'border-indigo-500/50 ring-indigo-500/10' },
   sky: { border: 'border-t-sky-500', text: 'text-sky-600', tagBorder: 'border-sky-200', tagBg: 'bg-sky-50', ring: 'border-sky-500/50 ring-sky-500/10' },
+  violet: { border: 'border-t-violet-500', text: 'text-violet-600', tagBorder: 'border-violet-200', tagBg: 'bg-violet-50', ring: 'border-violet-500/50 ring-violet-500/10' },
 }
 
 type CardMediaKind =
   | { type: 'video'; src: string }
+  | { type: 'image'; src: string }
+  | { type: 'gallery'; images: { src: string; caption: string }[] }
   | { type: 'covers' }
   | { type: 'book' }
 
@@ -39,15 +42,30 @@ const CARDS: {
     href: '#lsdiet',
     tag: 'Free training',
     accent: 'emerald',
-    media: { type: 'video', src: '/media/lsdiet-card.mp4' },
+    media: {
+      type: 'gallery',
+      images: [
+        { src: '/media/lsdiet-shot-1.jpg', caption: 'FREE Psych Class on Weight Loss' },
+        { src: '/media/lsdiet-shot-2.jpg', caption: 'Real Client Videos' },
+        { src: '/media/lsdiet-shot-3.jpg', caption: 'Why You Keep Losing and Regaining' },
+      ],
+    },
   },
   {
     title: 'Anti-Time-Theft Logger',
-    category: 'TIME-THEFT DEFENSE',
+    category: 'SaaS',
     href: '#attl',
-    tag: 'Chrome Extension',
+    tag: 'Developed by Oscar',
     accent: 'amber',
-    media: { type: 'video', src: '/media/attl-demo.mp4' },
+    media: { type: 'image', src: '/media/attl-static.jpg' },
+  },
+  {
+    title: 'NoMath',
+    category: 'SaaS',
+    href: 'https://nomath.ca',
+    tag: 'Developed by Oscar',
+    accent: 'violet',
+    media: { type: 'image', src: '/media/nomath-static.jpg' },
   },
   {
     title: 'Original Music',
@@ -90,6 +108,53 @@ function CardVideo({ src, active }: { src: string; active: boolean }) {
       preload="metadata"
       className="w-full h-full object-cover pointer-events-none"
     />
+  )
+}
+
+function CardImage({ src }: { src: string }) {
+  return (
+    <img
+      src={src}
+      alt=""
+      draggable={false}
+      className="w-full h-full object-cover pointer-events-none select-none"
+    />
+  )
+}
+
+function CardGallery({
+  images,
+  active,
+}: {
+  images: { src: string; caption: string }[]
+  active: boolean
+}) {
+  const [idx, setIdx] = useState(0)
+
+  useEffect(() => {
+    if (!active) return
+    const interval = setInterval(() => {
+      setIdx((i) => (i + 1) % images.length)
+    }, 2800)
+    return () => clearInterval(interval)
+  }, [active, images.length])
+
+  return (
+    <div className="relative w-full h-full bg-zinc-900">
+      {images.map((img, i) => (
+        <img
+          key={img.src}
+          src={img.src}
+          alt={img.caption}
+          draggable={false}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+          style={{ opacity: i === idx ? 1 : 0 }}
+        />
+      ))}
+      <span className="absolute bottom-2 left-3 right-3 text-[9px] font-bold tracking-wider text-white/90 uppercase drop-shadow pointer-events-none">
+        {images[idx].caption}
+      </span>
+    </div>
   )
 }
 
@@ -150,6 +215,8 @@ function MiniBook() {
 
 function CardMedia({ media, active }: { media: CardMediaKind; active: boolean }) {
   if (media.type === 'video') return <CardVideo src={media.src} active={active} />
+  if (media.type === 'image') return <CardImage src={media.src} />
+  if (media.type === 'gallery') return <CardGallery images={media.images} active={active} />
   if (media.type === 'covers') return <MusicFlashcards active={active} />
   return <MiniBook />
 }
@@ -183,7 +250,7 @@ export default function Hero() {
   }, [])
 
   useEffect(() => {
-    const cardAngles = CARDS.map((_, idx) => (idx * Math.PI) / 2)
+    const cardAngles = CARDS.map((_, idx) => (idx * 2 * Math.PI) / CARDS.length)
     let minDiff = Infinity
     let closestIndex = 0
     cardAngles.forEach((angle, idx) => {
@@ -265,7 +332,7 @@ export default function Hero() {
           </div>
 
           {CARDS.map((card, idx) => {
-            const cardAngleOffset = (idx * Math.PI) / 2
+            const cardAngleOffset = (idx * 2 * Math.PI) / CARDS.length
             const currentAngle = (rotation + cardAngleOffset) % (Math.PI * 2)
 
             const Rx = viewportWidth < 768 ? 200 : Math.min(420, viewportWidth * 0.22)
