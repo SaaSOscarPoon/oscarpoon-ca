@@ -135,7 +135,7 @@ function CardGallery({
     if (!active) return
     const interval = setInterval(() => {
       setIdx((i) => (i + 1) % images.length)
-    }, 2800)
+    }, 1500)
     return () => clearInterval(interval)
   }, [active, images.length])
 
@@ -147,7 +147,7 @@ function CardGallery({
           src={img.src}
           alt={img.caption}
           draggable={false}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
           style={{ opacity: i === idx ? 1 : 0 }}
         />
       ))}
@@ -171,7 +171,7 @@ function MusicFlashcards({ active }: { active: boolean }) {
     if (!active) return
     const interval = setInterval(() => {
       setCoverIdx((i) => (i + 1) % ALBUM_COVERS.length)
-    }, 2400)
+    }, 1500)
     return () => clearInterval(interval)
   }, [active])
 
@@ -183,7 +183,7 @@ function MusicFlashcards({ active }: { active: boolean }) {
           src={cover.src}
           alt={`${cover.title} album art`}
           draggable={false}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
           style={{ opacity: i === coverIdx ? 1 : 0 }}
         />
       ))}
