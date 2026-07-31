@@ -84,7 +84,7 @@ const CARDS: {
     media: { type: 'covers' },
   },
   {
-    title: 'WPT Toolbook',
+    title: 'Weight Permanence Toolbook',
     category: 'THE COMPANION MANUAL',
     href: '#toolbook',
     tag: '$500 value',
@@ -155,7 +155,7 @@ function CardGallery({
           src={img.src}
           alt={img.caption}
           draggable={false}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
+          className="absolute inset-0 w-full h-full object-cover object-bottom transition-opacity duration-300"
           style={{ opacity: i === idx ? 1 : 0 }}
         />
       ))}
@@ -438,12 +438,7 @@ export default function Hero() {
                       {card.tag}
                     </span>
                   </div>
-                  <h3 className="text-base font-bold text-zinc-900 tracking-tight">{displayTitle}</h3>
-                  {product && (
-                    <p className="text-[10px] text-zinc-400 mt-0.5 leading-snug min-h-[14px]">
-                      {product.tagline}
-                    </p>
-                  )}
+                  <h3 className="text-base font-bold text-zinc-900 tracking-tight text-center">{displayTitle}</h3>
                 </div>
                 <div className="flex-1 overflow-hidden">
                   <CardMedia media={card.media} active={isFocus} saasProductIdx={saasProductIdx} />
