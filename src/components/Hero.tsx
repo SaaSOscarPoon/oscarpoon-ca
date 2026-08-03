@@ -24,7 +24,6 @@ const ACCENT_STYLES: Record<
 type CardMediaKind =
   | { type: 'video'; src: string }
   | { type: 'image'; src: string }
-  | { type: 'gallery'; images: { src: string; caption: string }[] }
   | { type: 'saas' }
   | { type: 'covers' }
   | { type: 'book' }
@@ -58,14 +57,7 @@ const CARDS: {
     href: '#lsdiet',
     tag: 'Free training',
     accent: 'emerald',
-    media: {
-      type: 'gallery',
-      images: [
-        { src: '/media/lsdiet-shot-1.jpg', caption: 'FREE Psych Class on Weight Loss' },
-        { src: '/media/lsdiet-shot-2.jpg', caption: 'Real Client Videos' },
-        { src: '/media/lsdiet-shot-3.jpg', caption: 'Why You Keep Losing and Regaining' },
-      ],
-    },
+    media: { type: 'image', src: '/media/lsdiet-shot-3.jpg' },
   },
   {
     title: SAAS_PRODUCTS[0].title,
@@ -127,42 +119,6 @@ function CardImage({ src }: { src: string }) {
       draggable={false}
       className="w-full h-full object-cover pointer-events-none select-none"
     />
-  )
-}
-
-function CardGallery({
-  images,
-  active,
-}: {
-  images: { src: string; caption: string }[]
-  active: boolean
-}) {
-  const [idx, setIdx] = useState(0)
-
-  useEffect(() => {
-    if (!active) return
-    const interval = setInterval(() => {
-      setIdx((i) => (i + 1) % images.length)
-    }, 1500)
-    return () => clearInterval(interval)
-  }, [active, images.length])
-
-  return (
-    <div className="relative w-full h-full bg-zinc-900">
-      {images.map((img, i) => (
-        <img
-          key={img.src}
-          src={img.src}
-          alt={img.caption}
-          draggable={false}
-          className="absolute inset-0 w-full h-full object-cover object-bottom transition-opacity duration-300"
-          style={{ opacity: i === idx ? 1 : 0 }}
-        />
-      ))}
-      <span className="absolute bottom-2 left-3 right-3 text-[9px] font-bold tracking-wider text-white/90 uppercase drop-shadow pointer-events-none">
-        {images[idx].caption}
-      </span>
-    </div>
   )
 }
 
@@ -249,7 +205,6 @@ function CardMedia({
 }) {
   if (media.type === 'video') return <CardVideo src={media.src} active={active} />
   if (media.type === 'image') return <CardImage src={media.src} />
-  if (media.type === 'gallery') return <CardGallery images={media.images} active={active} />
   if (media.type === 'saas') return <CardSaasImage productIdx={saasProductIdx} />
   if (media.type === 'covers') return <MusicFlashcards active={active} />
   return <MiniBook />
