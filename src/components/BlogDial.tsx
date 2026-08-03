@@ -190,12 +190,6 @@ export default function BlogDial() {
                 >
                   Just Published by Oscar
                 </span>
-                <p
-                  className="hidden md:block text-[12px] tracking-wide text-right max-w-[320px] leading-[1.5] pt-2"
-                  style={{ color: '#a1a1aa', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
-                >
-                  // Three times a week I write up what I'm learning about weight, psychology, and behaviour
-                </p>
               </div>
 
               <div className="flex-1 flex flex-col justify-center md:justify-end min-h-0">
@@ -223,20 +217,8 @@ export default function BlogDial() {
                     {active.title}
                   </h2>
                 </a>
-              </div>
-
-              <div className="flex flex-wrap gap-2 justify-between items-center mt-4 md:mt-7">
-                <a
-                  href={active.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-3 text-white uppercase tracking-[0.14em] text-[9px] md:text-[10px] hover:text-amber-500 transition-colors group"
-                >
-                  <span>Tap to read the article (free)</span>
-                  <span className="w-8 h-px bg-zinc-600 group-hover:w-16 group-hover:bg-amber-500 transition-all duration-500" />
-                </a>
                 <span
-                  className="text-[10px] md:text-[11px] tracking-wide"
+                  className="text-[10px] md:text-[11px] tracking-wide mt-2 text-center md:text-left"
                   style={{ color: '#71717a', fontFamily: 'ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace' }}
                 >
                   {active.readTimeMinutes ? `EST. ${active.readTimeMinutes} MIN READ` : 'FREE TO READ'}

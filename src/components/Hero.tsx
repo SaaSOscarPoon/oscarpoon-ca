@@ -312,7 +312,7 @@ export default function Hero() {
           Health · Security · Music · Identity
         </p>
         <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-[#0F172A]">
-          Building things I wish already existed
+          Solving Real Life Problems
         </h1>
       </div>
 
