@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Anti-Time Theft Logger Privacy Policy</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; color: #333; line-height: 1.5; }
+    h2 { border-bottom: 2px solid #0d47a1; padding-bottom: 8px; color: #0d47a1; }
+    .highlight { background: #e8f5e9; padding: 10px; border-left: 4px solid #2e7d32; margin: 15px 0; }
+  </style>
+</head>
+<body>
+  <h2>Anti-Time Theft Logger Privacy & Data Protection Policy</h2>
+  <p><strong>Effective Date:</strong> July 2026</p>
+  <p>Anti-Time Theft Logger is committed to protecting user privacy in compliance with the Personal Information Protection and Electronic Documents Act (PIPEDA) and British Columbia's Personal Information Protection Act (PIPA).</p>
+  
+  <h3>1. Designated Privacy Officer</h3>
+  <p>Accountability for our platform data compliance is managed directly by our appointed Privacy Officer. For any data access requests, compliance audits, or privacy inquiries, please contact:</p>
+  <div class="highlight">
+    <strong>Privacy Officer:</strong> Oscar<br>
+    <strong>Email:</strong> <a href="mailto:support@oscarpoon.ca">support@oscarpoon.ca</a>
+  </div>
+
+  <h3>2. Data Minimization & Collection Limits</h3>
+  <p>We strictly minimize data collection to protect your privacy wrapper. Anti-Time Theft Logger collects:</p>
+  <ul>
+    <li><strong>Timestamps:</strong> Exact start and end times of user-initiated compliance tracking windows.</li>
+    <li><strong>Network Fingerprint:</strong> Public IP addresses to verify isolation from corporate routing environments.</li>
+    <li><strong>ISP/Network Provider Name:</strong> We look up the internet service provider or network organization name associated with your public IP address, via the third-party lookup service <a href="https://ipwho.is" target="_blank">ipwho.is</a>. This is shown alongside (never in place of) your raw IP address, for readability. Your IP address is sent to ipwho.is to perform this lookup.</li>
+    <li><strong>Minimized Domain Contexts:</strong> We extract and log <em>only top-level domain names</em> (e.g., <code>github.com</code>, not <code>mail.google.com</code> — subdomains are stripped along with everything else below). We explicitly strip and do not collect full URLs, private sub-paths, subdomains, or query strings to prevent session-token leakage or exposure of an employer's specific internal systems. This is captured continuously for every tab opened or navigated to during a session, not just what's open when the session starts and ends, so a page you visited and closed mid-session is still reflected in the record.</li>
+    <li><strong>Contemporaneous Note:</strong> An optional, user-authored free-text description of the session's activity, entered voluntarily before ending a session.</li>
+    <li><strong>Active Engagement Time:</strong> While a session is running, we track whether you are actively using the browser (via the OS-level idle signal) and whether your active tab is on a supported AI assistant site (currently claude.ai, chatgpt.com/chat.openai.com, gemini.google.com, perplexity.ai, copilot.microsoft.com, poe.com, meta.ai, grok.com, chat.deepseek.com, chat.mistral.ai, you.com, character.ai, or huggingface.co/chat). Time is only counted while all three are true at once: you are not idle, that window has OS focus, and that tab is one of the listed sites.</li>
+  </ul>
+
+  <h3 id="deep-engagement">3. Deep Engagement Logging (AI Sites Only)</h3>
+  <p>On the same supported AI assistant sites listed above, and <strong>only while a session is actively running</strong>, we capture a short fragment of each prompt you submit — never the full text, and never the assistant's response:</p>
+  <ul>
+    <li><strong>Prompts:</strong> the first 15 words you typed, truncated with "…" if longer.</li>
+    <li><strong>What we do NOT capture:</strong> the remainder of any prompt, the assistant's response, file attachments, images, or any content once a session is not running.</li>
+  </ul>
+  <p>These fragments exist for one purpose: so that if you ever review your own log, you can confirm at a glance what you were actually working on — enough to distinguish "drafting the ATTL SOW" from something unrelated, without the log becoming a searchable archive of your full conversations. This capture happens locally via a content script running on the pages listed above; the same backup and deletion rules in Sections 4 and 5 apply to it.</p>
+  <p><strong>Adding a site yourself:</strong> the extension's settings let you add any additional domain (e.g. an AI tool not on the list above) to this same capture behaviour. Doing so triggers Chrome's own permission prompt for that specific site — nothing is added silently — and the site then follows every rule on this page exactly the same way the pre-listed ones do: capture only while a session is running, same word limits, same never-full-text rule. You can remove a site you've added at any time from the same settings screen.</p>
+
+  <h3>4. Data Subject Rights (Right to Deletion)</h3>
+  <p>Under Canadian law, you retain full ownership of your data context. You may request deletion of your historical records at any time by emailing <a href="mailto:support@oscarpoon.ca">support@oscarpoon.ca</a> with your Backup ID. Deletion is carried out manually rather than instantly through an automated dashboard — see Section 5 below for why.</p>
+
+  <h3>5. Data Integrity &amp; Tamper-Proofing</h3>
+  <p>Your session log is protected by three mechanisms designed so that no one — including us — can quietly alter a past entry:</p>
+  <ul>
+    <li><strong>Hash chain:</strong> every entry is cryptographically linked to the one before it. Editing an old entry breaks the chain in a way that's mathematically detectable.</li>
+    <li><strong>Append-only database:</strong> the database itself refuses every edit or delete request from our running application, including our own automated backend. This is why deletion requests (Section 4) are handled as a deliberate, individually logged manual action rather than an instant automated one.</li>
+    <li><strong>Public, independent timestamping:</strong> once a day, we publish a fingerprint of the entire log, a short scrambled code, never the log itself, to a public record outside our own systems. Nobody can reconstruct your session data from that code; it's only useful for confirming a given day's log hasn't changed since. This means even a full database wipe couldn't produce a fake history that matches a previously published fingerprint.</li>
+  </ul>
+  <p>Full details: <a href="https://oscarpoon.ca/attl/tamper-proof" target="_blank">How the Log Is Tamper-Proof</a>.</p>
+
+  <h3 id="native-host">6. Optional Native Helper (macOS Desktop App Tracking &amp; Git Correlation)</h3>
+  <p>This capability is <strong>off by default</strong>. It only activates if you separately install a native helper program on your own Mac (via the <code>native-host/install.sh</code> script bundled with this extension) — Chrome extensions cannot see anything outside the browser on their own, and we do not install anything outside the browser automatically.</p>
+  <p>If you have installed the native helper, and only while a session is running:</p>
+  <ul>
+    <li><strong>Frontmost desktop app:</strong> once a minute, we ask the helper which application is frontmost on your Mac (e.g. "Claude", "Code", "Terminal") and whether you've touched the mouse/keyboard in the last minute. If you have, that minute is credited to that app's running total for the session. We do not see window titles, on-screen content, keystrokes, or which app was frontmost for the other 59 seconds of that minute.</li>
+    <li><strong>Git commit correlation:</strong> only if you've entered a repository path in the extension's settings, at session end we ask the helper to run <code>git log</code> against that one repository, scoped to your session's start/end timestamps, and record each commit's hash, timestamp, and message. We never read any other repository, and never read file contents or diffs — only commit metadata.</li>
+  </ul>
+  <p>Both features run entirely locally between the extension and the helper program on your own machine; neither is sent anywhere except as part of your own session log, under the same collection, deletion, and integrity rules described in Sections 2, 4, and 5 above.</p>
+</body>
+</html>
