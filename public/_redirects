@@ -1,0 +1,4 @@
+/gmailme/privacy /openmail/privacy 301
+/gmailme/terms /openmail/terms 301
+/gmailme/* /openmail/:splat 301
+/gmailme /openmail 301
